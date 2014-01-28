@@ -153,7 +153,7 @@ public class GameScreen extends Screen
         // g.drawImage(Assets.background, 0, 0);
         // g.drawImage(Assets.character, characterX, characterY);
         
-        g.drawImage(Assets.menu, 0, 0);
+        //g.drawImage(Assets.menu, 0, 0);
 
         // Secondly, draw the UI above the game elements.
         if (state == GameState.Ready)
@@ -181,8 +181,7 @@ public class GameScreen extends Screen
         Graphics g = game.getGraphics();
 
         g.drawARGB(155, 0, 0, 0);
-        g.drawString("Tap each side of the screen to move in that direction.",
-                640, 300, paint);
+        g.drawString("Tap each side of the screen to move in that direction.", 640, 300, paint);
 
     }
 
@@ -225,5 +224,6 @@ public class GameScreen extends Screen
     @Override
     public void backButton() {
         pause();
+    	game.setScreen(new MainMenuScreen(game));
     }
 }

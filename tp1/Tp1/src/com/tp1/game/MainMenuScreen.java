@@ -2,10 +2,14 @@ package com.tp1.game;
 
 import java.util.List;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+
 import com.tp1.framework.Game;
 import com.tp1.framework.Graphics;
 import com.tp1.framework.Screen;
 import com.tp1.framework.Input.TouchEvent;
+import com.tp1.framework.implementation.AndroidGraphics;
 
 public class MainMenuScreen extends Screen{
 
@@ -24,10 +28,10 @@ public class MainMenuScreen extends Screen{
             TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) 
             {
-                if (inBounds(event, 0, 0, 250, 250)) 
+                if (inBounds(event, 0, 0, 250, 125)) 
                 {
 					//START GAME
-                	//Assets.click.play(10);
+                	Assets.click.play(10);
 					game.setScreen(new GameScreen(game));               
                 }
             }
@@ -46,6 +50,16 @@ public class MainMenuScreen extends Screen{
 	public void paint(float deltaTime) 
 	{
 		Graphics g = game.getGraphics();
+		g.drawRect(0, 0, 250, 125, Color.GREEN);
+		Paint p = new Paint();
+		p.setTextSize(30);
+        p.setTextAlign(Paint.Align.CENTER);
+        p.setAntiAlias(true);
+        p.setColor(Color.BLACK);
+        
+        ((AndroidGraphics) g).drawScaledImage(Assets.menu, 500, 100, 250, 700, 0, 0, 985, 1452);
+        
+		g.drawString("Play", 125, 62, p);
         //g.drawImage(Assets.menu, 0, 0);	
 	}
 
