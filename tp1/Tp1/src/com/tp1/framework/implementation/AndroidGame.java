@@ -30,7 +30,7 @@ public abstract class AndroidGame extends Activity implements Game {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -42,11 +42,10 @@ public abstract class AndroidGame extends Activity implements Game {
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
         
-        Point size = new Point();  //ajoute : getWidth, getHeight deprecated
-        getWindowManager().getDefaultDisplay().getSize(size);  //ajoute : getWidth, getHeight deprecated
-        
-        float scaleX = (float) frameBufferWidth / size.x; //original : getWindowManager().getDefaultDisplay().getWidth();
-        float scaleY = (float) frameBufferHeight / size.y; //original : getWindowManager().getDefaultDisplay().getHeight();
+        float scaleX = (float) frameBufferWidth
+                / getWindowManager().getDefaultDisplay().getWidth();
+        float scaleY = (float) frameBufferHeight
+                / getWindowManager().getDefaultDisplay().getHeight();
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer);
@@ -57,7 +56,7 @@ public abstract class AndroidGame extends Activity implements Game {
         setContentView(renderView);
         
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(WindowManager.LayoutParams.FLAG_FULLSCREEN, "MyGame");  //original : PowerManager.FULL_WAKE_LOCK
+        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
     }
 
     @Override
