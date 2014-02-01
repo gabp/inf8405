@@ -18,6 +18,7 @@ public class GameScreen extends Screen
     }
 
     GameState state = GameState.Ready;
+    Grid gemGrid;
 
     // Variable Setup
     // You would create game objects here.
@@ -27,6 +28,8 @@ public class GameScreen extends Screen
 
     public GameScreen(Game game) {
         super(game);
+        
+        gemGrid = new Grid();
 
         // Initialize game objects here
 
@@ -47,7 +50,7 @@ public class GameScreen extends Screen
         // Depending on the state of the game, we call different update methods.
         // Refer to Unit 3's code. We did a similar thing without separating the
         // update methods.
-
+        /*
         if (state == GameState.Ready)
             updateReady(touchEvents);
         if (state == GameState.Running)
@@ -55,7 +58,7 @@ public class GameScreen extends Screen
         if (state == GameState.Paused)
             updatePaused(touchEvents);
         if (state == GameState.GameOver)
-            updateGameOver(touchEvents);
+            updateGameOver(touchEvents);*/
     }
 
     private void updateReady(List<TouchEvent> touchEvents) {
@@ -146,6 +149,9 @@ public class GameScreen extends Screen
     @Override
     public void paint(float deltaTime) {
         Graphics g = game.getGraphics();
+        g.clearScreen(0);
+        
+        gemGrid.paint(game);
 
         // First draw the game elements.
 
@@ -156,14 +162,14 @@ public class GameScreen extends Screen
         //g.drawImage(Assets.menu, 0, 0);
 
         // Secondly, draw the UI above the game elements.
-        if (state == GameState.Ready)
+       /* if (state == GameState.Ready)
             drawReadyUI();
         if (state == GameState.Running)
             drawRunningUI();
         if (state == GameState.Paused)
             drawPausedUI();
         if (state == GameState.GameOver)
-            drawGameOverUI();
+            drawGameOverUI();*/
 
     }
 

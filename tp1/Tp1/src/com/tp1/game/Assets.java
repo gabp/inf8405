@@ -7,5 +7,9 @@ public class Assets {
     
     public static Image menu;
     public static Image menuButton;
+    public static Image gemRuby;
+    public static Image gemTopaz;
+    public static Image gemZircon;
+    
     public static Sound click;
 }
