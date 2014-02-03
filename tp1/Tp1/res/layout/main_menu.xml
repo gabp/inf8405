@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Bejwellooooo"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btn_main_mode_chrono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="17dp"
+        android:minHeight="80dp"
+        android:minWidth="120dp"
+        android:text="Mode Chrono" />
+
+    <Button
+        android:id="@+id/btn_main_mode_limite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_main_mode_chrono"
+        android:layout_alignRight="@+id/btn_main_mode_chrono"
+        android:layout_below="@+id/btn_main_mode_chrono"
+        android:layout_marginTop="20dp"
+        android:minHeight="80dp"
+        android:minWidth="120dp"
+        android:text="Mode Limite" />
+
+    <Button
+        android:id="@+id/btn_main_scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_main_mode_limite"
+        android:layout_alignRight="@+id/btn_main_mode_limite"
+        android:layout_below="@+id/btn_main_mode_limite"
+        android:layout_marginTop="18dp"
+        android:minHeight="80dp"
+        android:minWidth="120dp"
+        android:text="Scores" />
+
+    <Button
+        android:id="@+id/btn_main_quitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_main_scores"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_main_scores"
+        android:layout_marginBottom="21dp"
+        android:minHeight="80dp"
+        android:minWidth="120dp"
+        android:text="Quitter" />
+
+</RelativeLayout>

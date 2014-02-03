@@ -7,7 +7,6 @@ import java.util.List;
 
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.print.PrintAttributes;
 
 import com.tp1.framework.Game;
 import com.tp1.framework.Graphics;

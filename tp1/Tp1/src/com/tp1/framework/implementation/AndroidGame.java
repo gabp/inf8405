@@ -1,5 +1,6 @@
 package com.tp1.framework.implementation;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -18,6 +19,7 @@ import com.tp1.framework.Game;
 import com.tp1.framework.Graphics;
 import com.tp1.framework.Input;
 import com.tp1.framework.Screen;
+import com.tp1.game.R;
 
 public abstract class AndroidGame extends Activity implements Game {
     AndroidFastRenderView renderView;
@@ -53,7 +55,8 @@ public abstract class AndroidGame extends Activity implements Game {
         audio = new AndroidAudio(this);
         input = new AndroidInput(this, renderView, scaleX, scaleY);
         screen = getInitScreen();
-        setContentView(renderView);
+        //setContentView(renderView);
+        setContentView(R.layout.main_menu);
         
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
