@@ -23,7 +23,8 @@
         android:layout_marginTop="17dp"
         android:minHeight="80dp"
         android:minWidth="120dp"
-        android:text="Mode Chrono" />
+        android:text="Mode Chrono"
+        android:onClick="changeActivity" />
 
     <Button
         android:id="@+id/btn_main_mode_limite"

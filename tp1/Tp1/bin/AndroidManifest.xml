@@ -14,16 +14,20 @@
     <application
        android:icon="@drawable/ic_launcher"
        android:label="Bejewello" >
+       	<activity
+			android:name=".BejewelloMenu"
+			android:label="BejewelloMenu"> 
+			<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>         
+ 		</activity>
         <activity
            android:name=".Bejewello"
            android:configChanges="keyboard|keyboardHidden|orientation"
            android:label="Bejewello"
-           android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+           android:screenOrientation="portrait" >
+            
         </activity>
     </application>
 

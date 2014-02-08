@@ -6,12 +6,10 @@ import com.tp1.framework.Screen;
 import com.tp1.framework.Graphics.ImageFormat;
 
 public class LoadingScreen extends Screen
-{
-
+{	
 	public LoadingScreen(Game game) 
 	{
 		super(game);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -29,7 +27,8 @@ public class LoadingScreen extends Screen
         //load sounds
         Assets.click = game.getAudio().createSound("Collision8-Bit.ogg");	
         
-        game.setScreen(new MainMenuScreen(game));
+        //MenuButton _buttonChrono = new MenuButton(game, R.id.btn_main_mode_chrono);
+        game.setScreen(new GameScreen(game));
 	}
 
 	@Override

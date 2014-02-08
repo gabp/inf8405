@@ -3,6 +3,7 @@ package com.tp1.framework.implementation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -10,8 +11,11 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.tp1.framework.Audio;
 import com.tp1.framework.FileIO;
@@ -19,6 +23,8 @@ import com.tp1.framework.Game;
 import com.tp1.framework.Graphics;
 import com.tp1.framework.Input;
 import com.tp1.framework.Screen;
+import com.tp1.game.Bejewello;
+import com.tp1.game.BejewelloMenu;
 import com.tp1.game.R;
 
 public abstract class AndroidGame extends Activity implements Game {
@@ -29,6 +35,7 @@ public abstract class AndroidGame extends Activity implements Game {
     FileIO fileIO;
     Screen screen;
     WakeLock wakeLock;
+    Button b;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,8 +62,8 @@ public abstract class AndroidGame extends Activity implements Game {
         audio = new AndroidAudio(this);
         input = new AndroidInput(this, renderView, scaleX, scaleY);
         screen = getInitScreen();
-        //setContentView(renderView);
-        setContentView(R.layout.main_menu);
+        setContentView(renderView);
+        //setContentView(R.layout.main_menu);
         
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
@@ -116,5 +123,23 @@ public abstract class AndroidGame extends Activity implements Game {
     public Screen getCurrentScreen() {
 
         return screen;
+    }
+    
+    
+    public void goToMenu()
+    {
+    	Intent intent = new Intent(this, BejewelloMenu.class);
+        startActivity(intent);
+        finish();
+    	/*if (id == 0)
+    	{
+    		setContentView(renderView);
+    		renderView.resume();
+    	}
+    	else
+    	{
+    		renderView.pause();
+    		setContentView(R.layout.main_menu);
+    	}*/
     }
 }

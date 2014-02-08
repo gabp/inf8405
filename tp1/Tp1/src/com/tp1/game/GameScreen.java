@@ -2,6 +2,7 @@ package com.tp1.game;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 
@@ -10,6 +11,7 @@ import com.tp1.framework.Graphics;
 import com.tp1.framework.Image;
 import com.tp1.framework.Screen;
 import com.tp1.framework.Input.TouchEvent;
+import com.tp1.framework.implementation.AndroidGame;
 
 public class GameScreen extends Screen 
 {
@@ -138,7 +140,6 @@ public class GameScreen extends Screen
                 if (event.x > 300 && event.x < 980 && event.y > 100
                         && event.y < 500) {
                     nullify();
-                    game.setScreen(new MainMenuScreen(game));
                     return;
                 }
             }
@@ -227,9 +228,11 @@ public class GameScreen extends Screen
 
     }
 
-    @Override
-    public void backButton() {
-        //pause();
-    	game.setScreen(new MainMenuScreen(game));
-    }
+	@Override
+	public void backButton()
+	{
+		((AndroidGame)game).goToMenu();
+		// TODO Auto-generated method stub
+		
+	}
 }
