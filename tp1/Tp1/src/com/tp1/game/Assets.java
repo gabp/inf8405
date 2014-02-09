@@ -11,5 +11,14 @@ public class Assets {
     public static Image gemTopaz;
     public static Image gemZircon;
     
+    public static Image homer;
+    public static Image bart;
+    public static Image duff;
+    public static Image maggie;
+    public static Image donut;
+    public static Image marge;
+    public static Image grandpa;
+    
+    
     public static Sound click;
 }

@@ -24,6 +24,14 @@ public class LoadingScreen extends Screen
         Assets.gemTopaz = g.newImage("topaz.png", ImageFormat.RGB565);
         Assets.gemZircon = g.newImage("zircon.png", ImageFormat.RGB565);
         
+        Assets.bart = g.newImage("bart.png", ImageFormat.RGB565);
+        Assets.homer = g.newImage("homer.png", ImageFormat.RGB565);
+        Assets.grandpa = g.newImage("grandpa.png", ImageFormat.RGB565);
+        Assets.maggie = g.newImage("maggie.png", ImageFormat.RGB565);
+        Assets.marge = g.newImage("marges-father.png", ImageFormat.RGB565);
+        Assets.duff = g.newImage("duff.png", ImageFormat.RGB565);
+        Assets.donut = g.newImage("donut.png", ImageFormat.RGB565);
+        
         //load sounds
         Assets.click = game.getAudio().createSound("Collision8-Bit.ogg");	
         
