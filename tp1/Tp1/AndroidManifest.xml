@@ -8,12 +8,13 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-sdk
-       android:minSdkVersion="8"
-       android:targetSdkVersion="17" />
+       android:minSdkVersion="13"
+       android:targetSdkVersion="19" />
 
     <application
        android:icon="@drawable/ic_launcher"
-       android:label="Bejewello" >
+       android:label="Bejewello" 
+       android:allowBackup="true">
        	<activity
 			android:name=".BejewelloMenu"
 			android:label="BejewelloMenu"> 

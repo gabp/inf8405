@@ -2,13 +2,9 @@ package com.tp1.game;
 
 import java.util.List;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.tp1.framework.Game;
-import com.tp1.framework.Graphics;
-import com.tp1.framework.Image;
 import com.tp1.framework.Screen;
 import com.tp1.framework.Input.TouchEvent;
 import com.tp1.framework.implementation.AndroidGame;
@@ -44,7 +40,7 @@ public class GameScreen extends Screen
     @Override
     public void paint(float deltaTime) 
     {
-        Graphics g = game.getGraphics();
+        //Graphics g = game.getGraphics();
         
         gemGrid.paint(game);
     }

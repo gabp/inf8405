@@ -1,20 +1,14 @@
 package com.tp1.framework.implementation;
 
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.tp1.framework.Audio;
@@ -23,9 +17,7 @@ import com.tp1.framework.Game;
 import com.tp1.framework.Graphics;
 import com.tp1.framework.Input;
 import com.tp1.framework.Screen;
-import com.tp1.game.Bejewello;
 import com.tp1.game.BejewelloMenu;
-import com.tp1.game.R;
 
 public abstract class AndroidGame extends Activity implements Game {
     AndroidFastRenderView renderView;
@@ -34,10 +26,9 @@ public abstract class AndroidGame extends Activity implements Game {
     Input input;
     FileIO fileIO;
     Screen screen;
-    WakeLock wakeLock;
     Button b;
 
-    @Override
+	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
 
@@ -51,10 +42,10 @@ public abstract class AndroidGame extends Activity implements Game {
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
         
-        float scaleX = (float) frameBufferWidth
-                / getWindowManager().getDefaultDisplay().getWidth();
-        float scaleY = (float) frameBufferHeight
-                / getWindowManager().getDefaultDisplay().getHeight();
+        Point p = new Point();
+        getWindowManager().getDefaultDisplay().getSize(p);  //this requires API lvl 13 minimum
+        float scaleX = (float) frameBufferWidth / p.x;
+        float scaleY = (float) frameBufferHeight / p.y;
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer);
@@ -63,16 +54,13 @@ public abstract class AndroidGame extends Activity implements Game {
         input = new AndroidInput(this, renderView, scaleX, scaleY);
         screen = getInitScreen();
         setContentView(renderView);
-        //setContentView(R.layout.main_menu);
         
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        wakeLock.acquire();
         screen.resume();
         renderView.resume();
     }
@@ -80,7 +68,6 @@ public abstract class AndroidGame extends Activity implements Game {
     @Override
     public void onPause() {
         super.onPause();
-        wakeLock.release();
         renderView.pause();
         screen.pause();
 

@@ -1,9 +1,7 @@
 package com.tp1.game;
 
 import com.tp1.framework.Game;
-import com.tp1.framework.Graphics;
 import com.tp1.framework.Screen;
-import com.tp1.framework.Graphics.ImageFormat;
 
 public class QuitScreen extends Screen{
 

@@ -2,7 +2,6 @@ package com.tp1.game;
 
 import com.tp1.framework.Game;
 import com.tp1.framework.Input.TouchEvent;
-import com.tp1.game.Gem.GemType;
 
 public class Grid
 {
