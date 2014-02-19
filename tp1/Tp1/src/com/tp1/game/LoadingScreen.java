@@ -17,13 +17,7 @@ public class LoadingScreen extends Screen
 	{
 		Graphics g = game.getGraphics();
 		
-		//load images
-        Assets.menu = g.newImage("mexican.jpg", ImageFormat.RGB565);
-        Assets.menuButton = g.newImage("black-button.png", ImageFormat.RGB565);
-        Assets.gemRuby = g.newImage("ruby.png", ImageFormat.RGB565);
-        Assets.gemTopaz = g.newImage("topaz.png", ImageFormat.RGB565);
-        Assets.gemZircon = g.newImage("zircon.png", ImageFormat.RGB565);
-        
+		//load images        
         Assets.bart = g.newImage("bart.png", ImageFormat.RGB565);
         Assets.homer = g.newImage("homer.png", ImageFormat.RGB565);
         Assets.grandpa = g.newImage("grandpa.png", ImageFormat.RGB565);

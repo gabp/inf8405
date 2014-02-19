@@ -11,14 +11,14 @@ import com.tp1.framework.implementation.AndroidGame;
 
 public class GameScreen extends Screen 
 {
-    Grid gemGrid;
+    Grid _grid;
     Paint paint;
 
     public GameScreen(Game game) 
     {
         super(game);
         
-        gemGrid = new Grid();
+        _grid = Grid.getInstance();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class GameScreen extends Screen
             TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) 
             {
-            	gemGrid.update(game, event);
+            	_grid.update(event);
             }
         }
     }
@@ -42,7 +42,7 @@ public class GameScreen extends Screen
     {
         //Graphics g = game.getGraphics();
         
-        gemGrid.paint(game);
+        _grid.paint();
     }
 
     @Override

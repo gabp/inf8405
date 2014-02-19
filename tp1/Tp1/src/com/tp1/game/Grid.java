@@ -1,19 +1,27 @@
 package com.tp1.game;
 
-import com.tp1.framework.Game;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.graphics.Color;
+
 import com.tp1.framework.Input.TouchEvent;
+import com.tp1.framework.implementation.AndroidGame;
 
 public class Grid
 {
 	final int numberOfColumns = 8, numberOfLines = 8;
 	Gem[][] gems;
 	int _x = 75, _y = 400;
-	Game _game;
+	AndroidGame _game;
 	int _numberOfSelectedGems = 0;
 	Gem gem1 = null, gem2 = null;
+	private static Grid _instance;
 	
-	public Grid()
+	private Grid()
 	{
+		_instance = this;
+		_game = Bejewello.getGame();
 		gems = new Gem[numberOfColumns][numberOfLines];
 		for(int i=0; i<numberOfColumns; i++)
 		{
@@ -38,6 +46,11 @@ public class Grid
 		
 		//so that we don't have a line of 3 of the same type
 		fixGemTypes();
+	}
+	
+	public static Grid getInstance()
+	{
+		return (_instance == null) ? new Grid() : _instance;
 	}
 	
 	public void fixGemTypes()
@@ -119,13 +132,13 @@ public class Grid
 		}
 	}
 	
-	public void update(Game game, TouchEvent event)
+	public void update(TouchEvent event)
 	{		
 		for(Gem[] column : gems)
 		{
 			for(Gem g : column)
 			{
-				g.update(game, event);
+				g.update(event);
 			}
 		}	
 		
@@ -153,14 +166,14 @@ public class Grid
 			{
 				switchGems(gem1, gem2);	
 				checkForLines();
-				deselectAll(game);
+				deselectAll();
 				gem1 = null;
 				gem2 = null;
 				_numberOfSelectedGems = 0;
 			}
 			else
 			{
-				deselectAll(game);
+				deselectAll();
 				gem1 = null;
 				gem2 = null;
 				_numberOfSelectedGems = 0;
@@ -225,34 +238,134 @@ public class Grid
 	
 	public void switchGems(Gem gem1, Gem gem2)
 	{
-		int x = gem1._x;
-		int y = gem1._y;
+		if (gem1._gemType != gem2._gemType)
+		{			
+			int x = gem1._x;
+			int y = gem1._y;
+			
+			gem1._x = gem2._x;
+			gem1._y = gem2._y;			
+			gem2._x = x;
+			gem2._y = y;
+			
+			gem1.updateNeighbors();
+			gem2.updateNeighbors();
+			this.updateNeighbors(gem1, gem2);
+			
+			gem1.drawNeighbors(Color.YELLOW);
+			gem2.drawNeighbors(Color.RED);
+			
+			gem1.changed();
+			gem2.changed();
+		}		
 		
-		gem1._x = gem2._x;
-		gem1._y = gem2._y;
+	}
+	
+	public void updateNeighbors(Gem gem1, Gem gem2)
+	{		
+		//horizontal
+		if(gem1.isEqual(gem2.leftNeighbor()))
+		{
+			if(gem1.leftNeighbor() != null) {gem1.leftNeighbor().updateNeighbors();}
+			if(gem2.rightNeighbor() != null) {gem2.rightNeighbor().updateNeighbors();}
+		}
+		else if (gem1.isEqual(gem2.rightNeighbor()))
+		{
+			if(gem1.rightNeighbor() != null) {gem1.rightNeighbor().updateNeighbors();}
+			if(gem2.leftNeighbor() != null) {gem2.leftNeighbor().updateNeighbors();}
+		}
 		
-		gem2._x = x;
-		gem2._y = y;
+		//vertical
+		else if (gem1.isEqual(gem2.bottomNeighbor()))
+		{
+			if(gem1.bottomNeighbor() != null) {gem1.bottomNeighbor().updateNeighbors();}
+			if(gem2.topNeighbor() != null) {gem2.topNeighbor().updateNeighbors();}
+		}
+		else if (gem1.isEqual(gem2.topNeighbor()))
+		{
+			if(gem1.topNeighbor() != null) {gem1.topNeighbor().updateNeighbors();}
+			if(gem2.bottomNeighbor() != null) {gem2.bottomNeighbor().updateNeighbors();}
+		}
+		
+		else
+		{
+			System.out.println("ERRROROROROROROORORORORORROROR");
+		}
+	}
+	
+	public void gemChanged(Gem g)
+	{
+		Gem temp = g;
+		List<Gem> gemListH = new ArrayList<Gem>();
+		List<Gem> gemListV = new ArrayList<Gem>();
+		gemListH.add(g);
+		gemListV.add(g);
+		
+		//horizontal
+		while (	temp != null && 
+				temp.leftNeighbor() != null &&
+				temp.leftNeighbor()._gemType == g._gemType)
+		{
+			temp = temp.leftNeighbor();
+			gemListH.add(temp.leftNeighbor());
+		}
+		temp = g;
+		while (	temp != null && 
+				temp.rightNeighbor() != null &&
+				temp.rightNeighbor()._gemType == g._gemType)
+		{
+			temp = temp.rightNeighbor();
+			gemListH.add(temp.rightNeighbor());
+		}	
+		//vertical
+		temp = g;
+		while (	temp != null && 
+				temp.topNeighbor() != null && 
+				temp.topNeighbor()._gemType == g._gemType)
+		{
+			temp = temp.topNeighbor();
+			gemListV.add(temp.topNeighbor());
+		}
+		temp = g;
+		while (	temp != null && 
+				temp.bottomNeighbor() != null &&
+				temp.bottomNeighbor()._gemType == g._gemType)
+		{
+			temp = temp.bottomNeighbor();
+			gemListV.add(temp.bottomNeighbor());
+		}
+		
+		if(gemListH.size() >= 3)
+		{
+			//TODO
+			System.out.println("horizontal line: " + gemListH.size());
+		}
+		
+		if (gemListV.size() >= 3)
+		{
+			//TODO
+			System.out.println("vertical line: " + gemListV.size());
+		}
 	}
 
-	public void deselectAll(Game game)
+	public void deselectAll()
 	{
 		for(Gem[] column : gems)
 		{
 			for(Gem g : column)
 			{
-				g.deselect(game);
+				g.deselect();
 			}
 		}	
 	}
 
-	public void paint(Game game)
+	public void paint()
 	{
 		for(Gem[] column : gems)
 		{
 			for(Gem g : column)
 			{
-				g.paint(game);
+				g.paint();
 			}
 		}	
 	}

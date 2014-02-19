@@ -15,9 +15,11 @@ public class Gem
 	GemType _gemType;
 	boolean _selected;
 	Gem _topNeighbor, _bottomNeighbor, _leftNeighbor, _rightNeighbor;
+	Game _game;
 	
 	public Gem()
 	{
+		_game = Bejewello.getGame();
 		_gemType = GemType.values()[(int)(Math.random() * (GemType.GEM_NUMBER.ordinal()))];
 		_width = 80;
 		_height = 100;
@@ -43,23 +45,9 @@ public class Gem
 		_gemType = g;
 	}
 	
-	public boolean isNeighbor(Gem g)
+	public void paint()
 	{
-		if(	Math.abs(g._y - _y) <= _height && 
-			Math.abs(g._x - _x) <= _width && 
-			(g._y == _y || g._x == _x))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	public void paint(Game game)
-	{
-		Graphics g = game.getGraphics();
+		Graphics g = _game.getGraphics();
 		
 		Image img = null;
 		
@@ -95,19 +83,42 @@ public class Gem
 		((AndroidGraphics) g).drawScaledImage(img, _x, _y, _width, _height, 0, 0, img.getWidth(), img.getHeight());
 	}
 	
-	public void update(Game game, TouchEvent event)
+	public void update(TouchEvent event)
 	{
 		if(inBounds(event, _x, _y, _width, _height))
 		{
 			if(!isSelected())
 			{
-				select(game);		
+				select();	
+				drawNeighbors(Color.YELLOW);
 			}
 			else
 			{
-				deselect(game);
+				deselect();
+				drawNeighbors(Color.BLACK);
 			}
 		}
+	}
+	
+	public boolean isEqual(Gem g)
+	{
+		if(g == null)
+		{
+			return false;
+		}
+		if (_x == g._x && _y == g._y)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public void changed()
+	{
+		Grid.getInstance().gemChanged(this);
 	}
 	
 	public void assignPosition(int gridX, int gridY, int x, int y)
@@ -125,16 +136,16 @@ public class Gem
             return false;
     }
 	
-	public void select(Game game)
+	public void select()
 	{
-		game.getGraphics().drawRect(_x, _y, _width, _height, Color.GREEN);
+		_game.getGraphics().drawRect(_x, _y, _width, _height, Color.GREEN);
 		
 		_selected = true;
 	}
 	
-	public void deselect(Game game)
+	public void deselect()
 	{
-		game.getGraphics().drawRect(_x, _y, _width, _height, Color.BLACK);
+		_game.getGraphics().drawRect(_x, _y, _width, _height, Color.BLACK);
 		_selected = false;
 	}
 	
@@ -143,6 +154,68 @@ public class Gem
 		return _selected;
 	}
 	
+	public void updateNeighbors()
+	{
+		_topNeighbor = null;
+		_bottomNeighbor = null;
+		_rightNeighbor = null;
+		_leftNeighbor = null;
+		
+		for (Gem[] columns : Grid.getInstance().gems)
+		{
+			for (Gem g : columns)
+			{
+				if(this.isNeighbor(g))
+				{
+					if(this._x - g._x == 0)
+					{
+						if(this._y - g._y > 0)
+						{
+							_topNeighbor = g;
+						}
+						else if(this._y - g._y < 0)
+						{
+							_bottomNeighbor = g;
+						}
+					}
+					else
+					{
+						if(this._x - g._x > 0)
+						{
+							_leftNeighbor = g;
+						}
+						else if(this._x - g._x < 0)
+						{
+							_rightNeighbor = g;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void drawNeighbors(int color)
+	{
+		_game.getGraphics().drawRect(topNeighbor()._x, topNeighbor()._y, _width, _height, color);
+		_game.getGraphics().drawRect(bottomNeighbor()._x, bottomNeighbor()._y, _width, _height, color);
+		_game.getGraphics().drawRect(rightNeighbor()._x, rightNeighbor()._y, _width, _height, color);
+		_game.getGraphics().drawRect(leftNeighbor()._x, leftNeighbor()._y, _width, _height, color);
+	}
+	
+	public boolean isNeighbor(Gem g)
+	{
+		if(	Math.abs(g._y - _y) <= _height && 
+			Math.abs(g._x - _x) <= _width && 
+			(g._y == _y || g._x == _x))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	public Gem topNeighbor()
 	{
 		return _topNeighbor;

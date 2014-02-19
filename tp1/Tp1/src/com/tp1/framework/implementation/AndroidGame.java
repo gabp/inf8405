@@ -118,15 +118,5 @@ public abstract class AndroidGame extends Activity implements Game {
     	Intent intent = new Intent(this, BejewelloMenu.class);
         startActivity(intent);
         finish();
-    	/*if (id == 0)
-    	{
-    		setContentView(renderView);
-    		renderView.resume();
-    	}
-    	else
-    	{
-    		renderView.pause();
-    		setContentView(R.layout.main_menu);
-    	}*/
     }
 }
