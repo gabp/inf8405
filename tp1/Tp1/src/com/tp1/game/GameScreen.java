@@ -24,6 +24,7 @@ public class GameScreen extends Screen
     @Override
     public void update(float deltaTime) 
     {
+    	Grid.getInstance().updateScore();
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         
         int len = touchEvents.size();
