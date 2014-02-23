@@ -1,8 +1,5 @@
 package com.tp1.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.graphics.Color;
 
 import com.tp1.framework.Game;
@@ -13,7 +10,8 @@ import com.tp1.framework.implementation.AndroidGraphics;
 
 public class Gem
 {
-	int _width, _height, _x, _y;
+	static int _width = 80, _height = 100;
+	int _x, _y;
 	public enum GemType {HOMER, BART, DUFF, DONUT, MAGGIE, MARGE, GRANDPA, GEM_NUMBER}
 	GemType _gemType;
 	boolean _selected;
@@ -21,15 +19,17 @@ public class Gem
 	Game _game;
 	boolean _moving = false;
 	int _targetX, _targetY, _movementSpeed = 10;
-	boolean _highlight = false, _disapearing = false, _disapeared = false;
-	int _disapearingRate = 20, _disapearAlpha = 0;
+	boolean _highlight = false, _disappearing = false, _disappeared = false, _disappearedChanged = false;
+	int _disappearingRate = 40, _disappearAlpha = 0;
+	boolean _selectedChanged = false;
+	boolean _firstTime = true;
+	boolean _movingChanged = false;
+	boolean _marked = false;
 	
 	public Gem()
 	{
 		_game = Bejewello.getGame();
 		_gemType = GemType.values()[(int)(Math.random() * (GemType.GEM_NUMBER.ordinal()))];
-		_width = 80;
-		_height = 100;
 		_selected = false;
 	}
 	
@@ -41,17 +41,25 @@ public class Gem
 		_rightNeighbor = new Gem();
 	}
 	
-	public void disapear()
+	public void disappear()
 	{
 		new java.util.Timer().schedule( 
 		        new java.util.TimerTask() {
 		            @Override
 		            public void run() {
-		                _disapearing = true;
+		                _disappearing = true;
+		                this.cancel();
 		            }
 		        }, 
 		        500 
 		);
+	}
+	
+	public void reappear()
+	{
+		_disappearAlpha = 0;
+		_disappearedChanged = _disappeared;
+		_disappeared = false;
 	}
 	
 	public void highlight()
@@ -63,6 +71,7 @@ public class Gem
 		            @Override
 		            public void run() {
 		                _highlight = false;
+		                this.cancel();
 		            }
 		        }, 
 		        500 
@@ -115,37 +124,52 @@ public class Gem
 			img = Assets.marge;
 		}
 		
-		_game.getGraphics().drawRect(_x, _y, _width, _height, Color.BLACK);
 		
-		if(_selected)
+		
+		if(_selected || _highlight || moving() || _selectedChanged || _firstTime || _disappearedChanged || _disappearing || _disappeared || _movingChanged)
 		{
-			_game.getGraphics().drawRect(_x, _y, _width, _height, Color.GREEN);
-		}
-		
-		if(_highlight)
-		{
-			_game.getGraphics().drawRect(_x, _y, _width, _height, Color.WHITE);
-		}
-		
-		animMovement();		
-		
-		((AndroidGraphics) g).drawScaledImage(img, _x, _y, _width, _height, 0, 0, img.getWidth(), img.getHeight());
-		
-		if(_disapearing || _disapeared)
-		{
-			if(_disapearAlpha >= 255)
-			{
-				_disapearing = false;
-				_disapearAlpha = 255;
-			}
-			_game.getGraphics().drawRect(_x, _y, _width, _height, Color.argb(_disapearAlpha, 0, 0, 0));
+			_firstTime = false;
+			_disappearedChanged = false;
+			_selectedChanged = false;
+			_movingChanged = false;
 			
-			if(!_disapeared && !_disapearing)
+			_game.getGraphics().drawRect(_x, _y, _width+1, _height+1, Color.BLACK);
+			
+			if(_selected)
 			{
-				_disapeared = true;
+				_game.getGraphics().drawRect(_x, _y, _width, _height, Color.GREEN);
+			}
+			else
+			{
+				_game.getGraphics().drawRect(_x, _y, _width+1, _height+1, Color.BLACK);
 			}
 			
-			_disapearAlpha += _disapearingRate;
+			if(_highlight)
+			{
+				_game.getGraphics().drawRect(_x, _y, _width, _height, Color.WHITE);
+			}
+			
+			animMovement();		
+			
+			((AndroidGraphics) g).drawScaledImage(img, _x, _y, _width, _height, 0, 0, img.getWidth(), img.getHeight());		
+		}
+		
+		if(_disappearing || _disappeared)
+		{
+			if(_disappearAlpha >= 255)
+			{
+				_disappearing = false;
+				_disappearAlpha = 255;
+			}
+			_game.getGraphics().drawRect(_x, _y, _width, _height, Color.argb(_disappearAlpha, 0, 0, 0));
+			
+			if(!_disappeared && !_disappearing)
+			{
+				_disappearedChanged = true;
+				_disappeared = true;
+			}
+			
+			_disappearAlpha += _disappearingRate;
 		}
 	}
 	
@@ -167,23 +191,39 @@ public class Gem
 				_x = _targetX;
 				_y = _targetY;
 				_moving = false;
+				_movingChanged = true;			
 				this.updateNeighbors();
 				this.updateNeighborsOfNeighbors();
-				this.hasChanged();
 			}
 		}
 	}
 	
 	public void moveTo(final int x, final int y)
-	{
+	{		
 		this._targetX = x;
 		this._targetY = y;
+		_movingChanged = !_moving;
 		this._moving = true;
 	}
 	
 	public boolean moving()
 	{
 		return _moving;
+	}
+	
+	public void mark()
+	{
+		_marked = true;
+	}
+	
+	public void unMark()
+	{
+		_marked = false;
+	}
+	
+	public boolean isMarked()
+	{
+		return _marked;
 	}
 	
 	public void updateNeighborsOfNeighbors()
@@ -226,11 +266,6 @@ public class Gem
 		}
 	}
 	
-	public void hasChanged()
-	{
-		Grid.getInstance().gemChanged(this);
-	}
-	
 	public void assignPosition(int gridX, int gridY, int x, int y)
 	{
 		_x = gridX + x * _width;
@@ -258,12 +293,13 @@ public class Gem
 	
 	public void select()
 	{		
+		_selectedChanged = !_selected;
 		_selected = true;
 	}
 	
 	public void deselect()
 	{
-		_game.getGraphics().drawRect(_x, _y, _width, _height, Color.BLACK);
+		_selectedChanged = _selected;
 		_selected = false;
 	}
 	
