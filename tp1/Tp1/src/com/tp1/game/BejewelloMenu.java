@@ -23,6 +23,7 @@ public class BejewelloMenu extends Activity
         setContentView(R.layout.main_menu);
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        
     }
 
     @Override
