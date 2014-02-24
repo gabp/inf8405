@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 
 public class BejewelloMenu extends Activity
-{
-	Button b;
+{	
+	public enum Mode {CHRONO, LIMITE, MODE_NUMBER}
+	Mode _mode;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,25 @@ public class BejewelloMenu extends Activity
         super.onPause();
     }
     
-    public void changeActivity(View v)
+    public void chronoButtonPressed(View v)
 	{
+    	_mode = Mode.CHRONO;
     	Intent intent = new Intent(this, Bejewello.class);
         startActivity(intent);
         finish();
 	}
+    
+    public void limiteButtonPressed(View v)
+	{
+    	_mode = Mode.LIMITE;
+    	Intent intent = new Intent(this, Bejewello.class);
+        startActivity(intent);
+        finish();
+	}
+    
+    public void quit(View v)
+    {
+    	finish();
+    	System.exit(0);
+    }
 }
