@@ -24,7 +24,7 @@
         android:minHeight="80dp"
         android:minWidth="120dp"
         android:text="Mode Chrono"
-        android:onClick="changeActivity" />
+        android:onClick="chronoButtonPressed" />
 
     <Button
         android:id="@+id/btn_main_mode_limite"
@@ -36,7 +36,8 @@
         android:layout_marginTop="20dp"
         android:minHeight="80dp"
         android:minWidth="120dp"
-        android:text="Mode Limite" />
+        android:text="Mode Limite" 
+        android:onClick="limiteButtonPressed"/>
 
     <Button
         android:id="@+id/btn_main_scores"
@@ -60,6 +61,7 @@
         android:layout_marginBottom="21dp"
         android:minHeight="80dp"
         android:minWidth="120dp"
-        android:text="Quitter" />
-
+        android:text="Quitter" 
+        android:onClick="quit" />
+ 
 </RelativeLayout>

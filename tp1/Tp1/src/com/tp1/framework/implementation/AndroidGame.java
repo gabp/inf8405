@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -27,6 +28,7 @@ public abstract class AndroidGame extends Activity implements Game {
     FileIO fileIO;
     Screen screen;
     Button b;
+    public static int width, height;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,16 +45,22 @@ public abstract class AndroidGame extends Activity implements Game {
                 frameBufferHeight, Config.RGB_565);
         
         Point p = new Point();
+        width = p.x;
+        height = p.y;
         getWindowManager().getDefaultDisplay().getSize(p);  //this requires API lvl 13 minimum
         float scaleX = (float) frameBufferWidth / p.x;
         float scaleY = (float) frameBufferHeight / p.y;
 
-        renderView = new AndroidFastRenderView(this, frameBuffer);
-        graphics = new AndroidGraphics(getAssets(), frameBuffer);
-        fileIO = new AndroidFileIO(this);
-        audio = new AndroidAudio(this);
-        input = new AndroidInput(this, renderView, scaleX, scaleY);
+        boolean firstTime = (AndroidFastRenderView._instance == null) ? true : false;
+        renderView = (AndroidFastRenderView._instance == null) ? new AndroidFastRenderView(this, frameBuffer) : AndroidFastRenderView._instance;
+        graphics = (AndroidGraphics._instance == null) ? new AndroidGraphics(getAssets(), frameBuffer) : AndroidGraphics._instance;
+        fileIO = (AndroidFileIO._instance == null) ? new AndroidFileIO(this) : AndroidFileIO._instance;
+        audio = (AndroidAudio._instance == null) ? new AndroidAudio(this) : AndroidAudio._instance;
+        input = (AndroidInput._instance == null) ? new AndroidInput(this, renderView, scaleX, scaleY) : AndroidInput._instance;
         screen = getInitScreen();
+        if(!firstTime)
+        	((ViewGroup)renderView.getParent()).removeView(renderView);
+        
         setContentView(renderView);
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -115,6 +123,7 @@ public abstract class AndroidGame extends Activity implements Game {
     
     public void goToMenu()
     {
+    	//renderView.pause();
     	Intent intent = new Intent(this, BejewelloMenu.class);
         startActivity(intent);
         finish();

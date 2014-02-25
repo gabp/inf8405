@@ -10,7 +10,7 @@ import android.view.WindowManager;
 public class BejewelloMenu extends Activity
 {	
 	public enum Mode {CHRONO, LIMITE, MODE_NUMBER}
-	Mode _mode;
+	static Mode _mode;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {

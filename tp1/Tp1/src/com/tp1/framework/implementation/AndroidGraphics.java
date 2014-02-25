@@ -23,8 +23,10 @@ public class AndroidGraphics implements Graphics {
     Paint paint;
     Rect srcRect = new Rect();
     Rect dstRect = new Rect();
+    static AndroidGraphics _instance;
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {
+    	this._instance = this;
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);

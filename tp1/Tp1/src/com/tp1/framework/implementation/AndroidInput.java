@@ -10,8 +10,10 @@ import com.tp1.framework.Input;
 
 public class AndroidInput implements Input {    
     TouchHandler touchHandler;
+    static AndroidInput _instance;
 
     public AndroidInput(Context context, View view, float scaleX, float scaleY) {
+    	this._instance = this;
         if(VERSION.SDK_INT < 5) //original : Integer.parseInt(VERSION.SDK)
             touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
         else

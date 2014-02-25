@@ -10,8 +10,24 @@ public class Bejewello extends AndroidGame
 	@Override
 	public Screen getInitScreen() 
 	{
-		_instance = this;
-		return new LoadingScreen(this);
+		if(_instance == null)
+		{
+			_instance = this;
+			return ScreenManager.getInstance().getLoadingScreen();
+		}
+		else
+		{
+			ScreenManager.getInstance().getGameScreen()._grid = new Grid();
+			return ScreenManager.getInstance().getGameScreen();
+		}
+		/*
+		if(LoadingScreen._instance == null)
+			return new LoadingScreen(_instance);
+		else
+		{
+			GameScreen._instance._grid = new Grid();
+			return GameScreen._instance;
+		}*/
 	}
 	
 	@Override
@@ -22,7 +38,7 @@ public class Bejewello extends AndroidGame
 	
 	public static AndroidGame getGame()
 	{
-		return (_instance == null) ? new Bejewello() : _instance;
+		return _instance;
 	}
 	
 }

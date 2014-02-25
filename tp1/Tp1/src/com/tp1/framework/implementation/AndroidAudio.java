@@ -15,8 +15,10 @@ import com.tp1.framework.Sound;
 public class AndroidAudio implements Audio {
     AssetManager assets;
     SoundPool soundPool;
+    static AndroidAudio _instance;
 
     public AndroidAudio(Activity activity) {
+    	this._instance = this;
         activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         this.assets = activity.getAssets();
         this.soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);

@@ -2,12 +2,16 @@ package com.tp1.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Pair;
 
 import com.tp1.framework.Input.TouchEvent;
 import com.tp1.framework.implementation.AndroidGame;
+import com.tp1.game.BejewelloMenu.Mode;
 
 public class Grid
 {
@@ -26,11 +30,17 @@ public class Grid
 	boolean _foundALine;
 	boolean _updatingGems = false;
 	int _potentialLines = 0;
+	BejewelloMenu.Mode _mode;
+	Integer _time = 60;
+	Timer _timer;
+	boolean _gameOver = false;
+	int _movesRemaining = 10;
 	
-	private Grid()
+	public Grid()
 	{
 		_instance = this;
 		_game = Bejewello.getGame();
+		_mode = BejewelloMenu._mode;
 		gems = new Gem[numberOfColumns][numberOfLines];
 		for(int i=0; i<numberOfColumns; i++)
 		{
@@ -56,6 +66,12 @@ public class Grid
 		//so that we don't have a line of 3 of the same type
 		fixGemTypes();
 		updatePotentialLines();
+		
+		if(_mode == Mode.CHRONO)
+		{
+			_timer = new Timer();
+			_timer.schedule(new UpdateTimer(), 0, 1000);
+		}
 	}
 	
 	public static Grid getInstance()
@@ -458,15 +474,39 @@ public class Grid
 		return false;
 	}
 	
-	public void updateScore()
+	public void updateUI()
 	{
 		Paint p = new Paint();
 		p.setColor(Color.WHITE);
 		p.setTextSize(50);
-		_game.getGraphics().drawRect(0, 0, 500, 150, Color.BLACK);
+		_game.getGraphics().drawRect(0, 0, 1000, 150, Color.BLACK);
 		_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
 		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 125, p);
+		
+		if(_gameOver)
+		{
+			_game.setScreen(ScreenManager.getInstance().getGameOverScreen());
+		}
+		
+		if(_mode == Mode.CHRONO)
+		{
+			_game.getGraphics().drawString(_time.toString(), 500, 50, p);
+		}
+		else
+		{
+			_game.getGraphics().drawString("Moves: " + _movesRemaining, 500, 50, p);
+		}
 	}
+	
+	class UpdateTimer extends TimerTask {
+	    public void run() {
+	       _time--; 
+	       if(_time <= 0)
+	       {
+	    	   _gameOver = true;
+	       }
+	    }
+	 }
 	
 	public void updatePotentialLines()
 	{
@@ -552,6 +592,8 @@ public class Grid
 
 	public void update(TouchEvent event)
 	{				
+		if(_gameOver)
+			return;
 		for(Gem[] column : gems)
 		{
 			for(Gem g : column)
@@ -686,6 +728,9 @@ public class Grid
 					e.printStackTrace();
 				}
     		}
+    		
+    		_movesRemaining--;
+    		_gameOver = (_movesRemaining > 0) ? false : true;
     	}
     	try
 		{
@@ -715,7 +760,8 @@ public class Grid
 		{
 			for(Gem g : column)
 			{
-				g.paint();
+				if(!_gameOver)
+					g.paint();
 			}
 		}	
 	}
