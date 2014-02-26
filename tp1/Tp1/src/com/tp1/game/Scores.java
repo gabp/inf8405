@@ -1,8 +1,5 @@
 package com.tp1.game;
 
-import com.tp1.framework.implementation.AndroidGame;
-import com.tp1.game.BejewelloMenu.Mode;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -26,7 +26,7 @@ public class AndroidGraphics implements Graphics {
     static AndroidGraphics _instance;
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {
-    	this._instance = this;
+    	AndroidGraphics._instance = this;
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);

@@ -8,7 +8,6 @@ import com.tp1.framework.Game;
 import com.tp1.framework.Screen;
 import com.tp1.framework.Input.TouchEvent;
 import com.tp1.framework.implementation.AndroidGame;
-import com.tp1.framework.implementation.AndroidGraphics;
 import com.tp1.game.BejewelloMenu.Mode;
 
 public class GameScreen extends Screen 

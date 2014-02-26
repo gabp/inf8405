@@ -13,7 +13,7 @@ public class AndroidInput implements Input {
     static AndroidInput _instance;
 
     public AndroidInput(Context context, View view, float scaleX, float scaleY) {
-    	this._instance = this;
+    	AndroidInput._instance = this;
         if(VERSION.SDK_INT < 5) //original : Integer.parseInt(VERSION.SDK)
             touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
         else

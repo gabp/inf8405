@@ -8,6 +8,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -43,33 +45,44 @@ public abstract class AndroidGame extends Activity implements Game {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-        int frameBufferWidth = isPortrait ? 800: 1280;
-        int frameBufferHeight = isPortrait ? 1280: 800;
+        final int frameBufferWidth = isPortrait ? 800: 1280;
+        final int frameBufferHeight = isPortrait ? 1280: 800;
         frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
         
-        Point p = new Point();
-        width = p.x;
-        height = p.y;
+        Point p = new Point();      
         getWindowManager().getDefaultDisplay().getSize(p);  //this requires API lvl 13 minimum
-        float scaleX = (float) frameBufferWidth / p.x;
-        float scaleY = (float) frameBufferHeight / p.y;
-        
+        //width = p.x;
+        //height = p.y;
         setContentView(R.layout.game);
         surface = (SurfaceView) findViewById(R.id.gameView);
+        surface.addOnLayoutChangeListener(new OnLayoutChangeListener()
+		{
+			@Override
+			public void onLayoutChange(View v, int left, int top, int right,
+					int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+			{
+				width = surface.getWidth();
+		        height = surface.getHeight();
+		        float scaleX = (float) frameBufferWidth / width;
+		        float scaleY = (float) frameBufferHeight / height;
+				input = (AndroidInput._instance == null) ? new AndroidInput(AndroidGame.this, surface, scaleX, scaleY) : AndroidInput._instance;
+				surface.removeOnLayoutChangeListener(this);
+			}
+		});
+        
         boolean firstTime = (AndroidFastRenderView._instance == null) ? true : false;
-        renderView = (AndroidFastRenderView._instance == null) ? new AndroidFastRenderView(this, frameBuffer) : AndroidFastRenderView._instance;
+        renderView = (AndroidFastRenderView._instance == null) ? new AndroidFastRenderView(AndroidGame.this, frameBuffer) : AndroidFastRenderView._instance;
         graphics = (AndroidGraphics._instance == null) ? new AndroidGraphics(getAssets(), frameBuffer) : AndroidGraphics._instance;
-        fileIO = (AndroidFileIO._instance == null) ? new AndroidFileIO(this) : AndroidFileIO._instance;
-        audio = (AndroidAudio._instance == null) ? new AndroidAudio(this) : AndroidAudio._instance;
-        input = (AndroidInput._instance == null) ? new AndroidInput(this, renderView, scaleX, scaleY) : AndroidInput._instance;
+        fileIO = (AndroidFileIO._instance == null) ? new AndroidFileIO(AndroidGame.this) : AndroidFileIO._instance;
+        audio = (AndroidAudio._instance == null) ? new AndroidAudio(AndroidGame.this) : AndroidAudio._instance;
+        
         screen = getInitScreen();
         if(!firstTime)
         	((ViewGroup)renderView.getParent()).removeView(renderView);
         
-        
-        
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        
     }
 
     @Override

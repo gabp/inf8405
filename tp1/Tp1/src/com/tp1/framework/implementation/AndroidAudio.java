@@ -18,7 +18,7 @@ public class AndroidAudio implements Audio {
     static AndroidAudio _instance;
 
     public AndroidAudio(Activity activity) {
-    	this._instance = this;
+    	AndroidAudio._instance = this;
         activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         this.assets = activity.getAssets();
         this.soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);

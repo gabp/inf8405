@@ -22,7 +22,7 @@ public class AndroidFileIO implements FileIO {
     static AndroidFileIO _instance;
 
     public AndroidFileIO(Context context) {
-    	this._instance = this;
+    	AndroidFileIO._instance = this;
         this.context = context;
         this.assets = context.getAssets();
         this.externalStoragePath = Environment.getExternalStorageDirectory()
