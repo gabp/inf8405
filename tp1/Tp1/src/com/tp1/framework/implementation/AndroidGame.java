@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +31,8 @@ public abstract class AndroidGame extends Activity implements Game {
     Screen screen;
     Button b;
     public static int width, height;
+    public static Bitmap frameBuffer;
+    public static SurfaceView surface;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public abstract class AndroidGame extends Activity implements Game {
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         int frameBufferWidth = isPortrait ? 800: 1280;
         int frameBufferHeight = isPortrait ? 1280: 800;
-        Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
+        frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
         
         Point p = new Point();
@@ -51,7 +54,9 @@ public abstract class AndroidGame extends Activity implements Game {
         getWindowManager().getDefaultDisplay().getSize(p);  //this requires API lvl 13 minimum
         float scaleX = (float) frameBufferWidth / p.x;
         float scaleY = (float) frameBufferHeight / p.y;
-
+        
+        setContentView(R.layout.game);
+        surface = (SurfaceView) findViewById(R.id.gameView);
         boolean firstTime = (AndroidFastRenderView._instance == null) ? true : false;
         renderView = (AndroidFastRenderView._instance == null) ? new AndroidFastRenderView(this, frameBuffer) : AndroidFastRenderView._instance;
         graphics = (AndroidGraphics._instance == null) ? new AndroidGraphics(getAssets(), frameBuffer) : AndroidGraphics._instance;
@@ -62,7 +67,7 @@ public abstract class AndroidGame extends Activity implements Game {
         if(!firstTime)
         	((ViewGroup)renderView.getParent()).removeView(renderView);
         
-        setContentView(renderView);
+        
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }

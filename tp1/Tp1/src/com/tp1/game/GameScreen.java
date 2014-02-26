@@ -45,7 +45,6 @@ public class GameScreen extends Screen
     public void paint(float deltaTime) 
     {
         //Graphics g = game.getGraphics();
-        ((AndroidGraphics) game.getGraphics()).drawScaledImage(Assets.gameBg, 0, 0, 600, 1024, 0, 0, 600, 1024);
         _grid.paint();
     }
 
