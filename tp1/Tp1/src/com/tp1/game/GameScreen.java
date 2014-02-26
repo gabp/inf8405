@@ -8,6 +8,7 @@ import com.tp1.framework.Game;
 import com.tp1.framework.Screen;
 import com.tp1.framework.Input.TouchEvent;
 import com.tp1.framework.implementation.AndroidGame;
+import com.tp1.framework.implementation.AndroidGraphics;
 import com.tp1.game.BejewelloMenu.Mode;
 
 public class GameScreen extends Screen 
@@ -44,7 +45,7 @@ public class GameScreen extends Screen
     public void paint(float deltaTime) 
     {
         //Graphics g = game.getGraphics();
-        
+        ((AndroidGraphics) game.getGraphics()).drawScaledImage(Assets.gameBg, 0, 0, 600, 1024, 0, 0, 600, 1024);
         _grid.paint();
     }
 

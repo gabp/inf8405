@@ -32,6 +32,7 @@ public class LoadingScreen extends Screen
 	        Assets.marge = g.newImage("marges-father.png", ImageFormat.RGB565);
 	        Assets.duff = g.newImage("duff.png", ImageFormat.RGB565);
 	        Assets.donut = g.newImage("donut.png", ImageFormat.RGB565);
+	        Assets.gameBg = g.newImage("main_bg.png", ImageFormat.RGB565);
 	        
 	        //load sounds
 	        Assets.click = game.getAudio().createSound("Collision8-Bit.ogg");	

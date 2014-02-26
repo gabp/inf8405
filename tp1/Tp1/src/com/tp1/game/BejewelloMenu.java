@@ -20,7 +20,7 @@ public class BejewelloMenu extends Activity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-        setContentView(R.layout.main_menu);
+        setContentView(R.layout.menu_principal);
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
@@ -48,6 +48,13 @@ public class BejewelloMenu extends Activity
 	{
     	_mode = Mode.LIMITE;
     	Intent intent = new Intent(this, Bejewello.class);
+        startActivity(intent);
+        finish();
+	}
+    
+    public void scoresButtonPressed(View v)
+	{
+    	Intent intent = new Intent(this, Scores.class);
         startActivity(intent);
         finish();
 	}

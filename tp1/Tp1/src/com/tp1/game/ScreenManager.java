@@ -6,14 +6,12 @@ public class ScreenManager
 	LoadingScreen _loadingScreen;
 	GameOverScreen _gameOverScreen;
 	GameScreen _gameScreen;
-	ScoreScreen _scoreScreen;
 	
 	private ScreenManager()
 	{
 		_loadingScreen = new LoadingScreen(Bejewello.getGame());
 		_gameOverScreen = new GameOverScreen(Bejewello.getGame());
 		_gameScreen = new GameScreen(Bejewello.getGame());
-		_scoreScreen = new ScoreScreen(Bejewello.getGame());
 	}
 	
 	static public ScreenManager getInstance()
@@ -37,8 +35,4 @@ public class ScreenManager
 		return _gameScreen;
 	}
 	
-	public ScoreScreen getScoreScreen()
-	{
-		return _scoreScreen;
-	}
 }
