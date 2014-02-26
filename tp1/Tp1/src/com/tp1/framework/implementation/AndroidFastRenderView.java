@@ -1,12 +1,14 @@
 package com.tp1.framework.implementation;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class AndroidFastRenderView extends SurfaceView implements Runnable {
+public class AndroidFastRenderView extends SurfaceView implements Runnable, SurfaceHolder.Callback {
     AndroidGame game;
     Bitmap framebuffer;
     Thread renderThread = null;
@@ -16,10 +18,19 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
     
     public AndroidFastRenderView(AndroidGame game, Bitmap framebuffer) {
         super(game);
+        getHolder().addCallback(this);
         AndroidFastRenderView._instance = this;
         this.game = game;
         this.framebuffer = framebuffer;
         this.holder = getHolder();
+
+    }
+    
+    public AndroidFastRenderView(Context game, AttributeSet attributeSet) {
+        super(game, attributeSet);
+        getHolder().addCallback(this);
+        this.holder = getHolder();
+        AndroidFastRenderView._instance = this;
 
     }
 
@@ -71,7 +82,29 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
             }
             
         }
-    }     
+    }
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder)
+	{
+		
+		
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder)
+	{
+		// TODO Auto-generated method stub
+		
+	}     
     
   
 }

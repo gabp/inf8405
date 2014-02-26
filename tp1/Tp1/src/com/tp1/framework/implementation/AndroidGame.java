@@ -19,6 +19,7 @@ import com.tp1.framework.Graphics;
 import com.tp1.framework.Input;
 import com.tp1.framework.Screen;
 import com.tp1.game.BejewelloMenu;
+import com.tp1.game.R;
 
 public abstract class AndroidGame extends Activity implements Game {
     AndroidFastRenderView renderView;
