@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.tp1.framework.Audio;
 import com.tp1.framework.FileIO;
@@ -35,6 +38,9 @@ public abstract class AndroidGame extends Activity implements Game {
     public static int width, height;
     public static Bitmap frameBuffer;
     public static SurfaceView surface;
+    public static SurfaceHolder surfaceHolder;
+    public static TextView scoreText;
+    public static TextView remainingText;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,10 @@ public abstract class AndroidGame extends Activity implements Game {
         //height = p.y;
         setContentView(R.layout.game);
         surface = (SurfaceView) findViewById(R.id.gameView);
+        surface.setZOrderOnTop(true);	//transparence?
+        surfaceHolder = surface.getHolder();
+        surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
+        
         surface.addOnLayoutChangeListener(new OnLayoutChangeListener()
 		{
 			@Override
@@ -83,6 +93,10 @@ public abstract class AndroidGame extends Activity implements Game {
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
+        
+    	//Text views pour le score/etc HUD top
+    	scoreText = (TextView) findViewById(R.id.Score);
+    	remainingText = (TextView) findViewById(R.id.Remaining);
     }
 
     @Override
@@ -139,6 +153,34 @@ public abstract class AndroidGame extends Activity implements Game {
         return screen;
     }
     
+    public void setScore(int currentScoreParam) {
+    	final int currentScore = currentScoreParam;
+    	
+    	AndroidGame.this.runOnUiThread(new Runnable(){
+
+            @Override
+            public void run() {
+            	
+            	scoreText.setText("Score: " + currentScore);
+            }               
+    	});
+    }
+    
+    public void setRemaining(int currentRemainingParam, String modeParam) {
+    	final int currentRemaining = currentRemainingParam;
+    	final String mode = modeParam;
+    	
+    	AndroidGame.this.runOnUiThread(new Runnable(){
+
+            @Override
+            public void run() {
+            	if (mode == "chrono")
+            		remainingText.setText("Temps restant: " + currentRemaining);
+            	else if (mode == "moves")
+            		remainingText.setText("Coups restants: " + currentRemaining);
+            }               
+    	});
+    }
     
     public void goToMenu()
     {

@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Pair;
+import android.widget.TextView;
 
 import com.tp1.framework.Input.TouchEvent;
 import com.tp1.framework.implementation.AndroidGame;
@@ -35,6 +36,7 @@ public class Grid
 	Timer _timer;
 	boolean _gameOver = false;
 	int _movesRemaining = 10;
+	
 	
 	public Grid()
 	{
@@ -480,8 +482,9 @@ public class Grid
 		p.setColor(Color.WHITE);
 		p.setTextSize(50);
 		_game.getGraphics().drawRect(0, 0, 1000, 150, Color.BLACK);
-		_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
+		//_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
 		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 125, p);
+		_game.setScore(_score);
 		
 		if(_gameOver)
 		{
@@ -490,11 +493,13 @@ public class Grid
 		
 		if(_mode == Mode.CHRONO)
 		{
-			_game.getGraphics().drawString(_time.toString(), 500, 50, p);
+			//_game.getGraphics().drawString(_time.toString(), 500, 50, p);
+			_game.setRemaining(_time, "chrono");
 		}
 		else
 		{
-			_game.getGraphics().drawString("Moves: " + _movesRemaining, 500, 50, p);
+			//_game.getGraphics().drawString("Moves: " + _movesRemaining, 500, 50, p);
+			_game.setRemaining(_movesRemaining, "moves");
 		}
 	}
 	
