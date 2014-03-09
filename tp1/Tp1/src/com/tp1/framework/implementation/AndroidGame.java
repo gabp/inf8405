@@ -35,12 +35,15 @@ public abstract class AndroidGame extends Activity implements Game {
     FileIO fileIO;
     Screen screen;
     Button b;
+    
+    String _currentPlayer = "Player";
     public static int width, height;
     public static Bitmap frameBuffer;
     public static SurfaceView surface;
     public static SurfaceHolder surfaceHolder;
     public static TextView scoreText;
     public static TextView remainingText;
+    public static TextView movesText;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,11 @@ public abstract class AndroidGame extends Activity implements Game {
     	//Text views pour le score/etc HUD top
     	scoreText = (TextView) findViewById(R.id.Score);
     	remainingText = (TextView) findViewById(R.id.Remaining);
+    	movesText = (TextView) findViewById(R.id.Moves);
+    	
+    	//Prendre le nom entré dans le menu avant la partie
+    	Bundle extras = getIntent().getExtras();
+    	_currentPlayer = extras.getString("PLAYER");
     }
 
     @Override
@@ -166,6 +174,19 @@ public abstract class AndroidGame extends Activity implements Game {
     	});
     }
     
+    public void setMoves(int movesParam) {
+    	final int moves = movesParam;
+    	
+    	AndroidGame.this.runOnUiThread(new Runnable(){
+
+            @Override
+            public void run() {
+            	
+            	movesText.setText("Moves Done: " + moves);
+            }               
+    	});
+    }
+    
     public void setRemaining(int currentRemainingParam, String modeParam) {
     	final int currentRemaining = currentRemainingParam;
     	final String mode = modeParam;
@@ -175,11 +196,16 @@ public abstract class AndroidGame extends Activity implements Game {
             @Override
             public void run() {
             	if (mode == "chrono")
-            		remainingText.setText("Temps restant: " + currentRemaining);
+            		remainingText.setText("Time left: " + currentRemaining);
             	else if (mode == "moves")
-            		remainingText.setText("Coups restants: " + currentRemaining);
+            		remainingText.setText("Moves left: " + currentRemaining);
             }               
     	});
+    }
+    
+    public void setCurrentPlayer(String playerName)
+    {
+    	_currentPlayer = playerName;
     }
     
     public void goToMenu()
@@ -189,4 +215,5 @@ public abstract class AndroidGame extends Activity implements Game {
         startActivity(intent);
         finish();
     }
+    
 }

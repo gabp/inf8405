@@ -22,6 +22,7 @@ public class Grid
 	AndroidGame _game;
 	int _numberOfSelectedGems = 0;
 	int _score = 0;
+	int _movesDone = 0;
 	Gem gem1 = null, gem2 = null;
 	private static Grid _instance;
 	boolean _animSwitch = false;
@@ -359,6 +360,8 @@ public class Grid
 				g._firstTime = true;
 			}
 		}
+    	//+1 move done
+    	_movesDone ++;
 	}
 
 	public void moveLines()
@@ -484,7 +487,9 @@ public class Grid
 		_game.getGraphics().drawRect(0, 0, 1000, 150, Color.BLACK);
 		//_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
 		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 125, p);
+		_game.setMoves(_movesDone);
 		_game.setScore(_score);
+		
 		
 		if(_gameOver)
 		{

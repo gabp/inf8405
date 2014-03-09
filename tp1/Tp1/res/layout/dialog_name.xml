@@ -12,7 +12,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/userInput"
+        android:id="@+id/NameInput"
         android:layout_width="match_parent"
         android:inputType="text"
         android:layout_height="wrap_content" >

@@ -46,14 +46,14 @@ public class BejewelloMenu extends Activity
     	// get prompts.xml view
 		LayoutInflater layoutInflater = LayoutInflater.from(this);
 
-		View promptView = layoutInflater.inflate(R.layout.dialog, null);
+		View promptView = layoutInflater.inflate(R.layout.dialog_name, null);
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		// set prompts.xml to be the layout file of the alertdialog builder
 		alertDialogBuilder.setView(promptView);
 
-		final EditText input = (EditText) promptView.findViewById(R.id.userInput);
+		final EditText input = (EditText) promptView.findViewById(R.id.NameInput);
 
 		// setup a dialog window
 		alertDialogBuilder
@@ -63,7 +63,9 @@ public class BejewelloMenu extends Activity
 								// get user input and set it to result
 								_playerName = input.getText().toString();
 								Intent intent = new Intent(BejewelloMenu.this, Bejewello.class);
-						        startActivity(intent);
+						        intent.putExtra("PLAYER", _playerName);
+								startActivity(intent);
+						        
 						        finish();
 							}
 						})
@@ -79,6 +81,10 @@ public class BejewelloMenu extends Activity
 
 		alertD.show();
     }
+    public String getName()
+	{
+    	return (_playerName);
+	}
     
     public void chronoButtonPressed(View v)
 	{

@@ -28,7 +28,12 @@
         	    android:layout_height="wrap_content"
         	    android:layout_alignParentLeft="true"
         	    android:layout_alignParentTop="true"
-        	    android:textAppearance="?android:attr/textAppearanceLarge" />
+        	    android:layout_marginLeft="3dp"
+        	    android:paddingLeft="3dp"
+        	    android:paddingTop="3dp"
+        	    android:text="Score: ----"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:textSize="20dp" />
         	
         	<TextView
         	    android:id="@+id/Remaining"
@@ -36,6 +41,23 @@
         	    android:layout_height="wrap_content"
         	    android:layout_alignParentRight="true"
         	    android:layout_alignParentTop="true"
+        	    android:paddingRight="3dp"
+        	    android:layout_marginRight="3dp"
+        	    android:paddingTop="3dp"
+        	    android:text="Moves left: --"
+        	    android:textAppearance="?android:attr/textAppearanceLarge"
+        	    android:textSize="20dp" />
+
+        	<TextView
+        	    android:id="@+id/Moves"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_alignParentLeft="true"
+        	    android:layout_centerVertical="true"
+        	    android:layout_marginLeft="3dp"
+        	    android:paddingTop="3dp"
+        	    android:text="Moves done: --"
+        	    android:textSize="20dp"
         	    android:textAppearance="?android:attr/textAppearanceLarge" />
             
         </RelativeLayout>
