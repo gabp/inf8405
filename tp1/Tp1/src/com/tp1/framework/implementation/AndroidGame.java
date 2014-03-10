@@ -154,12 +154,12 @@ public abstract class AndroidGame extends Activity implements Game {
 			tempName = sp.getString("Player" + i, "-");
 			tempScore = sp.getInt("Score" + i, 0);
 			
-			if (score > tempScore)	//si son score est plus grand que celui dans la liste
+			if (score >= tempScore)	//si son score est plus grand que celui dans la liste
 			{
 				return (i);	//positions de 1 à 6, ce qui sera retourné
 			}
 			//si il a le meme score que son ancien score, ou simplement deja présent plus haute dans la liste
-			else if (tempName == name )
+			else if (tempName.equals(name))
 			{
 				//jouer déja présent plus haut dans la liste (tempscore > score)
 				return (0);
@@ -180,6 +180,7 @@ public abstract class AndroidGame extends Activity implements Game {
 		int tempScore = score;
 		String tempNameAft = "";
 		int tempScoreAft = 0;
+		boolean descendant = true; //indique si on doit descendre les autres (true) ou monter dans le cas dun meme nom (false)
 		
 		Context contextGame = AndroidGame.getAppContext();
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(contextGame);
@@ -192,25 +193,31 @@ public abstract class AndroidGame extends Activity implements Game {
 			tempNameAft = sp.getString("Player" + tempPos, "-");	//ceux à descendre
 			tempScoreAft = sp.getInt("Score" + tempPos, 0);
 			
-			if (tempNameAft == name)	// Si c'est le même joueur deja présent
+			if (tempNameAft.equals(name))	// Si c'est le même joueur deja présent
 			{
 				if (tempPos == posTop5)		//même position que son ancienne
 				{
 					//On met simplement son nouveau score ici et on sort
 					editor.putInt("Score" + tempPos, score);	//on met le score avec l'indicateur Score
-					editor.commit();  
+					editor.commit();
 					return;
 				}
 				else	// pas la meme position, donc son nom s'est retrouvé plus bas
 				{
 					//les derniers players montent
-					editor.putString("Player" + tempPos, tempName);	//on met le nom avec l'indicateur Player
-					editor.putInt("Score" + tempPos, tempScore);	//on met le score avec l'indicateur Score
-					editor.commit();  
+					editor.putString("Player" + (tempPos), tempName);	//on met le nom avec l'indicateur Player
+					editor.putInt("Score" + (tempPos), tempScore);	//on met le score avec l'indicateur Score
+					editor.commit();
+					//descendant = false;	// on monte le reste
+					//tempPos++;
+					//tempNameAft = sp.getString("Player" + tempPos, "-");
+					//tempScoreAft = sp.getInt("Score" + tempPos, 0);
+					return;
+					
 				}
 			}
 			
-			else	//swap les players suivant
+			if (descendant)	//swap les players suivant
 			{
 				editor.putString("Player" + tempPos, tempName);	//on met le nom avec l'indicateur Player
 				editor.putInt("Score" + tempPos, tempScore);	//on met le score avec l'indicateur Score
@@ -218,6 +225,12 @@ public abstract class AndroidGame extends Activity implements Game {
 				tempName = tempNameAft;
 				tempScore = tempScoreAft;
 			}
+			/*if (!descendant)
+			{
+				editor.putString("Player" + (tempPos -1), tempNameAft);	//on met le nom avec l'indicateur Player
+				editor.putInt("Score" + (tempPos -1), tempScoreAft);	//on met le score avec l'indicateur Score
+				editor.commit();
+			}*/
 			
 		}
 	}
@@ -335,6 +348,11 @@ public abstract class AndroidGame extends Activity implements Game {
     	Intent intent = new Intent(this, BejewelloMenu.class);
         startActivity(intent);
         finish();
+    }
+    public void homeButtonPressed(View v)
+    {
+    	//dialog icit. choix: continuer, retour au menu, recommencer (si !fini)
+    	this.goToMenu();
     }
     
 }

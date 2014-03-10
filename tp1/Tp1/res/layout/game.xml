@@ -53,15 +53,25 @@
         	    android:id="@+id/Moves"
         	    android:layout_width="wrap_content"
         	    android:layout_height="wrap_content"
-        	    android:layout_alignParentLeft="true"
+        	    android:layout_alignParentRight="true"
         	    android:layout_centerVertical="true"
-        	    android:layout_marginLeft="3dp"
+        	    android:layout_marginRight="3dp"
         	    android:layout_marginTop="3dp"
         	    android:paddingTop="15dp"
-        	    android:paddingLeft="3dp"
+        	    android:paddingRight="3dp"
         	    android:text="Moves done: --"
         	    android:textSize="20dp"
         	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        	<ImageButton
+        	    android:id="@+id/home"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_below="@+id/Score"
+        	    android:background="@android:color/transparent"
+        	    android:onClick="homeButtonPressed"
+        	    android:scaleType="fitXY"
+        	    android:src="@drawable/btn_home" />
             
         </RelativeLayout>
         

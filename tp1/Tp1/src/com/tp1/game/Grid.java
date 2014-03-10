@@ -33,7 +33,7 @@ public class Grid
 	boolean _updatingGems = false;
 	int _potentialLines = 0;
 	BejewelloMenu.Mode _mode;
-	Integer _time = 20;
+	Integer _time = 10;
 	Timer _timer;
 	boolean _gameOver = false;
 	int _movesRemaining = 10;
