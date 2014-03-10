@@ -18,7 +18,7 @@ public class Grid
 {
 	final int numberOfColumns = 8, numberOfLines = 8;
 	Gem[][] gems;
-	int _x = 10, _y = 125;
+	int _x = 10, _y = 80;
 	AndroidGame _game;
 	int _numberOfSelectedGems = 0;
 	int _score = 0;
@@ -33,7 +33,7 @@ public class Grid
 	boolean _updatingGems = false;
 	int _potentialLines = 0;
 	BejewelloMenu.Mode _mode;
-	Integer _time = 60;
+	Integer _time = 20;
 	Timer _timer;
 	boolean _gameOver = false;
 	int _movesRemaining = 10;
@@ -479,21 +479,27 @@ public class Grid
 		return false;
 	}
 	
+	public int getScore()
+	{
+		return (_score);
+	}
+	
 	public void updateUI()
 	{
 		Paint p = new Paint();
 		p.setColor(Color.WHITE);
 		p.setTextSize(40);
-		_game.getGraphics().drawRect(0, 0, 1000, 100, Color.BLUE);
+		_game.getGraphics().drawRect(0, 0, 1000, 75, Color.BLACK);
 		//_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
-		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 50, p);
+		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 40, p);
 		_game.setMoves(_movesDone);
 		_game.setScore(_score);
 		
-		
+		//Si la partie est terminée
 		if(_gameOver)
 		{
-			_game.setScreen(ScreenManager.getInstance().getGameOverScreen());
+			_game.saveScore();
+			_game.setScreen(ScreenManager.getInstance().getGameOverScreen());	//montre l'écran de fin
 		}
 		
 		if(_mode == Mode.CHRONO)

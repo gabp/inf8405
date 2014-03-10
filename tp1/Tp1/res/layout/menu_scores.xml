@@ -21,12 +21,267 @@
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/scores_top" />
 	    
-	    <ImageView
-	        android:id="@+id/scores_mid"
-	        android:layout_width="match_parent"
+	    <RelativeLayout 
+   			android:layout_width="match_parent"
 	        android:layout_height="0dp"
-			android:layout_weight="0.57"			android:background="@android:color/transparent"
-	        android:src="@drawable/scores_mid" />
+			android:layout_weight="0.57"
+    		android:background="@drawable/scores_mid">
+    		
+		    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+	        android:orientation="vertical" >
+	        	
+	        	<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"
+		        android:layout_weight="0.2"
+		        android:orientation="horizontal" >
+		        
+	        	    <TextView
+	                    android:id="@+id/positionTitle"
+	                    android:text="#"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.1"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="left"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="30sp"
+	                    android:textStyle="bold" />
+
+	                <TextView
+	                    android:id="@+id/playerTitle"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.5"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center"
+	                    android:text="Player"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="30sp"
+	                    android:textStyle="bold" />
+	                
+	                <TextView
+	                    android:id="@+id/scoreTitle"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.4"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="right"
+	                    android:text="Score"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="30sp"
+	                    android:textStyle="bold" />
+	        
+	        
+		    	</LinearLayout>
+		    	
+	        	<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"
+		        android:layout_weight="0.12"
+		        android:orientation="horizontal" >
+	        
+	        	   <TextView
+	                    android:id="@+id/position1"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.1"
+	                    android:layout_height="wrap_content"
+	                    android:text="1"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+
+	                <TextView
+	                    android:id="@+id/player1"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.5"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center"
+	                    android:text="----------"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	                
+	                <TextView
+	                    android:id="@+id/score1"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.4"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="right"
+	                    android:text="-----"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	        
+		    	</LinearLayout>
+		    	
+	        	<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"
+		        android:layout_weight="0.12"
+		        android:orientation="horizontal" >
+	                
+	        	    <TextView
+	                    android:id="@+id/position2"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.1"
+	                    android:layout_height="wrap_content"
+	                    android:text="2"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+
+	                <TextView
+	                    android:id="@+id/player2"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.5"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center"
+	                    android:text="----------"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	                
+	                <TextView
+	                    android:id="@+id/score2"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.4"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="right"
+	                    android:text="-----"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	        
+	        
+		    	</LinearLayout>
+		    	
+	        	<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"
+		        android:layout_weight="0.12"
+		        android:orientation="horizontal" >
+	        
+	        	    <TextView
+	                    android:id="@+id/position3"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.1"
+	                    android:layout_height="wrap_content"
+	                    android:text="3"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+
+	                <TextView
+	                    android:id="@+id/player3"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.5"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center"
+	                    android:text="----------"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	                
+	                <TextView
+	                    android:id="@+id/score3"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.4"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="right"
+	                    android:text="-----"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	        
+		    	</LinearLayout>
+		    	
+	        	<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"
+		        android:layout_weight="0.12"
+		        android:orientation="horizontal" >
+	        
+	        	    <TextView
+	                    android:id="@+id/position4"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.1"
+	                    android:layout_height="wrap_content"
+	                    android:text="4"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+
+	                <TextView
+	                    android:id="@+id/player4"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.5"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center"
+	                    android:text="----------"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	                
+	                <TextView
+	                    android:id="@+id/score4"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.4"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="right"
+	                    android:text="-----"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	        
+		    	</LinearLayout>
+		    	
+	        	<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"
+		        android:layout_weight="0.12"
+		        android:orientation="horizontal" >
+	        
+	        	    <TextView
+	                    android:id="@+id/position5"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.1"
+	                    android:layout_height="wrap_content"
+	                    android:text="5"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+
+	                <TextView
+	                    android:id="@+id/player5"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.5"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center"
+	                    android:text="----------"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	                
+	                <TextView
+	                    android:id="@+id/score5"
+	                    android:layout_width="0dp"
+	                    android:layout_weight="0.4"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="right"
+	                    android:text="-----"
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                    android:textSize="25dp"
+	                    android:textStyle="normal" />
+	        
+		    	</LinearLayout>
+	        
+		    </LinearLayout>    
+	        
+	    </RelativeLayout>
 	    
 	    <ImageView
 	        android:id="@+id/scores_bot"

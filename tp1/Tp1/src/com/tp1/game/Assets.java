@@ -11,6 +11,7 @@ public class Assets {
     public static Image donut;
     public static Image marge;
     public static Image grandpa;
+    public static Image win;
     
     
     public static Sound click;

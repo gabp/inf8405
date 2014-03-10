@@ -62,6 +62,8 @@ public class BejewelloMenu extends Activity
 							public void onClick(DialogInterface dialog, int id) {
 								// get user input and set it to result
 								_playerName = input.getText().toString();
+								if (_playerName.equals(""))
+									_playerName = "Player";
 								Intent intent = new Intent(BejewelloMenu.this, Bejewello.class);
 						        intent.putExtra("PLAYER", _playerName);
 								startActivity(intent);
@@ -100,7 +102,7 @@ public class BejewelloMenu extends Activity
     
     public void scoresButtonPressed(View v)
 	{
-    	Intent intent = new Intent(this, Scores.class);
+    	Intent intent = new Intent(BejewelloMenu.this, Scores.class);
         startActivity(intent);
         finish();
 	}
