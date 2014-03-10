@@ -17,7 +17,8 @@
        android:allowBackup="true">
        	<activity
 			android:name=".BejewelloMenu"
-			android:label="BejewelloMenu"> 
+			android:label="Bejewello Game"
+			android:screenOrientation="portrait"> 
 			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

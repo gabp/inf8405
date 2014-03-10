@@ -10,7 +10,7 @@ import com.tp1.framework.implementation.AndroidGraphics;
 
 public class Gem
 {
-	static int _width = 80, _height = 100;
+	static int _width = 95, _height = 120;
 	int _x, _y;
 	public enum GemType {HOMER, BART, DUFF, DONUT, MAGGIE, MARGE, GRANDPA, GEM_NUMBER}
 	GemType _gemType;

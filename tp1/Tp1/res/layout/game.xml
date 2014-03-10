@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"	
-            android:layout_weight="0.2" >
+            android:layout_weight="0.15" >
             
             <ImageView
                 android:id="@+id/top"
@@ -55,7 +55,9 @@
         	    android:layout_alignParentLeft="true"
         	    android:layout_centerVertical="true"
         	    android:layout_marginLeft="3dp"
-        	    android:paddingTop="3dp"
+        	    android:layout_marginTop="3dp"
+        	    android:paddingTop="15dp"
+        	    android:paddingLeft="3dp"
         	    android:text="Moves done: --"
         	    android:textSize="20dp"
         	    android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -66,7 +68,15 @@
             android:id="@+id/gameView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.80" />
+            android:layout_weight="0.65" />
+        
+        <ImageView
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="0dp"
+        	android:layout_weight="0.20"
+            android:src="@drawable/main_bg" />
 
     </LinearLayout>
 

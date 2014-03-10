@@ -25,13 +25,13 @@ public class LoadingScreen extends Screen
 			Graphics g = game.getGraphics();
 			
 			//load images        
-	        Assets.bart = g.newImage("bart.png", ImageFormat.RGB565);
-	        Assets.homer = g.newImage("homer.png", ImageFormat.RGB565);
-	        Assets.grandpa = g.newImage("grandpa.png", ImageFormat.RGB565);
-	        Assets.maggie = g.newImage("maggie.png", ImageFormat.RGB565);
-	        Assets.marge = g.newImage("marges-father.png", ImageFormat.RGB565);
-	        Assets.duff = g.newImage("duff.png", ImageFormat.RGB565);
-	        Assets.donut = g.newImage("donut.png", ImageFormat.RGB565);
+	        Assets.bart = g.newImage("beigne_green.png", ImageFormat.RGB565);
+	        Assets.homer = g.newImage("beigne_brun.png", ImageFormat.RGB565);
+	        Assets.grandpa = g.newImage("beigne_yellow.png", ImageFormat.RGB565);
+	        Assets.maggie = g.newImage("beigne_rose.png", ImageFormat.RGB565);
+	        Assets.marge = g.newImage("beigne_blue.png", ImageFormat.RGB565);
+	        Assets.duff = g.newImage("beigne_noir.png", ImageFormat.RGB565);
+	        Assets.donut = g.newImage("beigne_white.png", ImageFormat.RGB565);
 	        
 	        //load sounds
 	        Assets.click = game.getAudio().createSound("Collision8-Bit.ogg");	

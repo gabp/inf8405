@@ -18,7 +18,7 @@ public class Grid
 {
 	final int numberOfColumns = 8, numberOfLines = 8;
 	Gem[][] gems;
-	int _x = 75, _y = 400;
+	int _x = 10, _y = 125;
 	AndroidGame _game;
 	int _numberOfSelectedGems = 0;
 	int _score = 0;
@@ -483,10 +483,10 @@ public class Grid
 	{
 		Paint p = new Paint();
 		p.setColor(Color.WHITE);
-		p.setTextSize(50);
-		_game.getGraphics().drawRect(0, 0, 1000, 150, Color.BLACK);
+		p.setTextSize(40);
+		_game.getGraphics().drawRect(0, 0, 1000, 100, Color.BLUE);
 		//_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
-		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 125, p);
+		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 50, p);
 		_game.setMoves(_movesDone);
 		_game.setScore(_score);
 		
