@@ -216,6 +216,7 @@ public class Grid
 					_foundALine = true;
 					_goodSwitch = true;
 					_score += gemListH.size()*100;
+					_movesDone ++;
 					if(gemListH.size() > 3)
 					{
 						_score -= (gemListH.size() - 3) * 50;
@@ -235,6 +236,7 @@ public class Grid
 					_foundALine = true;
 					_goodSwitch = true;
 					_score += gemListV.size()*100;
+					_movesDone ++;
 					if(gemListV.size() > 3)
 					{
 						_score -= (gemListV.size() - 3) * 50;
@@ -360,9 +362,7 @@ public class Grid
 				g.unMark();
 				g._firstTime = true;
 			}
-		}
-    	//+1 move done
-    	_movesDone ++;
+		}    	
 	}
 
 	public void moveLines()
