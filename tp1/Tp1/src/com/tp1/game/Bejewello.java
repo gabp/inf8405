@@ -18,6 +18,7 @@ public class Bejewello extends AndroidGame
 		else
 		{
 			ScreenManager.getInstance().getGameScreen()._grid = new Grid();
+			_instance.setScreen(ScreenManager.getInstance().getGameScreen());
 			return ScreenManager.getInstance().getGameScreen();
 		}
 		/*

@@ -9,7 +9,7 @@ import android.view.View;
 import com.tp1.framework.Input;
 
 public class AndroidInput implements Input {    
-    TouchHandler touchHandler;
+    public TouchHandler touchHandler;
     static AndroidInput _instance;
 
     public AndroidInput(Context context, View view, float scaleX, float scaleY) {

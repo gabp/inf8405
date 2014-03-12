@@ -32,6 +32,7 @@ import com.tp1.game.Bejewello;
 import com.tp1.game.BejewelloMenu;
 import com.tp1.game.Grid;
 import com.tp1.game.R;
+import com.tp1.game.ScreenManager;
 
 public abstract class AndroidGame extends Activity implements Game {
     AndroidFastRenderView renderView;
@@ -55,6 +56,7 @@ public abstract class AndroidGame extends Activity implements Game {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+    	
     	AndroidGame.context = getApplicationContext();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -64,15 +66,22 @@ public abstract class AndroidGame extends Activity implements Game {
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         final int frameBufferWidth = isPortrait ? 800: 1280;
         final int frameBufferHeight = isPortrait ? 1280: 800;
-        frameBuffer = Bitmap.createBitmap(frameBufferWidth,
+        
+        if(frameBuffer == null)
+        {
+        	frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
+        }
         
         Point p = new Point();      
         getWindowManager().getDefaultDisplay().getSize(p);  //this requires API lvl 13 minimum
         //width = p.x;
         //height = p.y;
+       // if(!firstTime)
+        //	((ViewGroup)surface.getParent()).removeView(surface);
         setContentView(R.layout.game);
         surface = (SurfaceView) findViewById(R.id.gameView);
+    		
         surface.setZOrderOnTop(true);	//transparence?
         surfaceHolder = surface.getHolder();
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
@@ -89,19 +98,24 @@ public abstract class AndroidGame extends Activity implements Game {
 		        float scaleX = (float) frameBufferWidth / width;
 		        float scaleY = (float) frameBufferHeight / height;
 				input = (AndroidInput._instance == null) ? new AndroidInput(AndroidGame.this, surface, scaleX, scaleY) : AndroidInput._instance;
+		        surface.setOnTouchListener(MultiTouchHandler._instance);
 				surface.removeOnLayoutChangeListener(this);
 			}
 		});
-        
         boolean firstTime = (AndroidFastRenderView._instance == null) ? true : false;
+        if(!firstTime)
+        {
+        	float w = (float) frameBufferWidth / width;
+        	float h = (float) frameBufferHeight / height;
+        	//input =  new AndroidInput(this, surface, w, h);
+        }
         renderView = (AndroidFastRenderView._instance == null) ? new AndroidFastRenderView(AndroidGame.this, frameBuffer) : AndroidFastRenderView._instance;
         graphics = (AndroidGraphics._instance == null) ? new AndroidGraphics(getAssets(), frameBuffer) : AndroidGraphics._instance;
         fileIO = (AndroidFileIO._instance == null) ? new AndroidFileIO(AndroidGame.this) : AndroidFileIO._instance;
         audio = (AndroidAudio._instance == null) ? new AndroidAudio(AndroidGame.this) : AndroidAudio._instance;
         
         screen = getInitScreen();
-        if(!firstTime)
-        	((ViewGroup)renderView.getParent()).removeView(renderView);
+        
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         

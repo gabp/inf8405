@@ -12,6 +12,7 @@ import com.tp1.framework.Pool.PoolObjectFactory;
 
 public class MultiTouchHandler implements TouchHandler {
     private static final int MAX_TOUCHPOINTS = 10;
+    public static MultiTouchHandler _instance;
     
     boolean[] isTouched = new boolean[MAX_TOUCHPOINTS];
     int[] touchX = new int[MAX_TOUCHPOINTS];
@@ -24,6 +25,7 @@ public class MultiTouchHandler implements TouchHandler {
     float scaleY;
 
     public MultiTouchHandler(View view, float scaleX, float scaleY) {
+    	_instance = this;
         PoolObjectFactory<TouchEvent> factory = new PoolObjectFactory<TouchEvent>() {
             @Override
             public TouchEvent createObject() {
@@ -31,6 +33,7 @@ public class MultiTouchHandler implements TouchHandler {
             }
         };
         touchEventPool = new Pool<TouchEvent>(factory, 100);
+        //view.setOnTouchListener(this);
         view.setOnTouchListener(this);
 
         this.scaleX = scaleX;

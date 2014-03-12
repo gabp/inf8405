@@ -1,5 +1,7 @@
 package com.tp1.framework.implementation;
 
+import com.tp1.game.Bejewello;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -32,6 +34,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
     }      
     
     public void run() {
+    	this.holder = AndroidGame.surface.getHolder();
         Rect dstRect = new Rect();
         long startTime = System.nanoTime();
         while(running) {  
