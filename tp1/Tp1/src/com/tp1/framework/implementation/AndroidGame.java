@@ -433,8 +433,7 @@ public abstract class AndroidGame extends Activity implements Game {
 				.setTitle("Are you sure you want to leave the current game?")
 				.setPositiveButton("Yes, Leave!", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								//goToMenu();
-								showSpanishDialog();
+								goToMenu();
 							}
 						})
 				.setNegativeButton("No, Stay!",
@@ -448,44 +447,4 @@ public abstract class AndroidGame extends Activity implements Game {
 		AlertDialog alertD = alertDialogBuilder.create();
 		alertD.show();
     }
-    public void showSpanishDialog()
-    {
-		LayoutInflater layoutInflater = LayoutInflater.from(this);
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		// setup a dialog window
-		alertDialogBuilder
-				.setTitle("Estoy quitto de la application? NO PUEDO!")
-				.setPositiveButton("Estraganda para los campos", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								showGroDialog();
-							}
-						})
-				.setNegativeButton("El bejewello d'el alerandro",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,	int id) {
-								showGroDialog();
-							}
-						});
-		// create an alert dialog
-		AlertDialog alertD = alertDialogBuilder.create();
-		alertD.show();
-    }
-    public void showGroDialog()
-    {
-		LayoutInflater layoutInflater = LayoutInflater.from(this);
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		// setup a dialog window
-		alertDialogBuilder
-				.setTitle("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!")
-				.setPositiveButton("PALABRAS DEL DIOTCHO NOCRE", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								goToMenu();
-							}
-						})
-;
-		// create an alert dialog
-		AlertDialog alertD = alertDialogBuilder.create();
-		alertD.show();
-    }
-    
 }
