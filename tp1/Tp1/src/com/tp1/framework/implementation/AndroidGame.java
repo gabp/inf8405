@@ -141,6 +141,10 @@ public abstract class AndroidGame extends Activity implements Game {
 	
 	public void saveScore()
 	{
+    	//Prendre le nom entré dans le menu avant la partie
+    	Bundle extras = getIntent().getExtras();
+    	_currentPlayer = extras.getString("PLAYER");
+    	
 		String name = Bejewello.getGame().getCurrentPlayer();
 		int score = Grid.getInstance().getScore();
 		int posTop5 = 0;
@@ -409,6 +413,7 @@ public abstract class AndroidGame extends Activity implements Game {
 						}
 						if (which == 1)
 						{
+							
 							ScreenManager.getInstance().getGameScreen().setNewGrid();
 							Bejewello.getGame().setScreen(ScreenManager.getInstance().getGameScreen());
 
