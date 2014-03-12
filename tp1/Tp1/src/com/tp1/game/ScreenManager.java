@@ -14,12 +14,14 @@ public class ScreenManager
 		_gameScreen = new GameScreen(Bejewello.getGame());
 	}
 	
+	//retourne l'instance
 	static public ScreenManager getInstance()
 	{
 		_instance = (_instance == null) ? new ScreenManager() : _instance;
 		return _instance;
 	}
 	
+	//retourne les différentes vues
 	public LoadingScreen getLoadingScreen()
 	{
 		return _loadingScreen;

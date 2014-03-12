@@ -78,7 +78,7 @@ public class Scores extends Activity
         finish();
 	}
     
-	
+	//Fonction de sauvegarde des scores
 	public void saveScore()
 	{
 		String name = Bejewello.getGame().getCurrentPlayer();
@@ -93,25 +93,27 @@ public class Scores extends Activity
 		editor.commit(); 
 	}
 	
+	//Fonction de chargement des scores
 	public void loadScores()
 	{
 		Context contextScore = getApplicationContext();
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(contextScore);
-		for (int i = 1;i<=5;i++)
+		for (int i = 1;i<=5;i++)	//pour chaque utilisateur présent
 		{
 			String user = sp.getString("Player" +i, "default");
 			int userScore = sp.getInt("Score" +i, 0);
-			setTopScores(i,user,userScore);
+			setTopScores(i,user,userScore);	//on les affiche selon leur position
 		}
 
 	}
 	
-	//Fonction qui mettre le score dans l'interface à partir du position/nom/score
+	//Fonction qui mettra les scores chargés dans l'interface à partir du position/nom/score
     public void setTopScores(int position, String playerName, int bestScore) {
     	final int pos = position;
     	final String player = playerName;
     	final int score = bestScore;
     	
+    	//sur le thread du UI
     	Scores.this.runOnUiThread(new Runnable(){
 
             @Override
