@@ -337,7 +337,7 @@ public abstract class AndroidGame extends Activity implements Game {
             @Override
             public void run() {
             	
-            	movesText.setText("Moves Done: " + moves);
+            	movesText.setText("Lines Done: " + moves);
             }               
     	});
     }
