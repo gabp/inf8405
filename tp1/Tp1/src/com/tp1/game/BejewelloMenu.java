@@ -1,5 +1,7 @@
 package com.tp1.game;
 
+import com.tp1.framework.implementation.AndroidGame;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -65,6 +67,7 @@ public class BejewelloMenu extends Activity
 									_playerName = "Player";
 								Intent intent = new Intent(BejewelloMenu.this, Bejewello.class);
 						        intent.putExtra("PLAYER", _playerName);
+						        AndroidGame.changePlayer(_playerName);
 								startActivity(intent);
 						        
 						        finish();
