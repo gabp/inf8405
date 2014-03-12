@@ -47,7 +47,7 @@ public abstract class AndroidGame extends Activity implements Game {
     Screen screen;
     Button b;
     
-    String _currentPlayer = "Player";
+    static String _currentPlayer = "Player";
     private static Context context;
     public static int width, height;
     public static Bitmap frameBuffer;
@@ -141,10 +141,6 @@ public abstract class AndroidGame extends Activity implements Game {
 	
 	public void saveScore()
 	{
-    	//Prendre le nom entré dans le menu avant la partie
-    	Bundle extras = getIntent().getExtras();
-    	_currentPlayer = extras.getString("PLAYER");
-    	
 		String name = Bejewello.getGame().getCurrentPlayer();
 		int score = Grid.getInstance().getScore();
 		int posTop5 = 0;
@@ -451,5 +447,10 @@ public abstract class AndroidGame extends Activity implements Game {
 		// create an alert dialog
 		AlertDialog alertD = alertDialogBuilder.create();
 		alertD.show();
+    }
+    
+    public static void changePlayer(String name)
+    {
+    	_currentPlayer = name;
     }
 }

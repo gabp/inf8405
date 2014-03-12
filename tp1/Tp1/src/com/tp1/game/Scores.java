@@ -74,7 +74,7 @@ public class Scores extends Activity
     	Intent intent = new Intent(this, BejewelloMenu.class);
         startActivity(intent);
         
-        setContentView(R.layout.menu_scores);
+        //setContentView(R.layout.menu_scores);
         finish();
 	}
     
