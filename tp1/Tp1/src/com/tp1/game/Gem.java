@@ -26,6 +26,7 @@ public class Gem
 	boolean _movingChanged = false;
 	boolean _marked = false;
 	
+	//generate a new gem with a random type
 	public Gem()
 	{
 		_game = Bejewello.getGame();
@@ -41,6 +42,7 @@ public class Gem
 		_rightNeighbor = new Gem();
 	}
 	
+	//make a gem disappear
 	public void disappear()
 	{
 		new java.util.Timer().schedule( 
@@ -55,6 +57,7 @@ public class Gem
 		);
 	}
 	
+	//make a gem reappear
 	public void reappear()
 	{
 		_disappearAlpha = 0;
@@ -62,6 +65,7 @@ public class Gem
 		_disappeared = false;
 	}
 	
+	//highlight a gem (when selectionned)
 	public void highlight()
 	{
 		_highlight = true;
@@ -78,6 +82,7 @@ public class Gem
 		);
 	}
 	
+	//change the type of the gem
 	public void changeGemType()
 	{
 		GemType g = GemType.values()[(int)(Math.random() * (GemType.GEM_NUMBER.ordinal()))];
@@ -89,6 +94,7 @@ public class Gem
 		_gemType = g;
 	}
 	
+	//main graphic loop
 	public void paint()
 	{
 		Graphics g = _game.getGraphics();
@@ -125,7 +131,7 @@ public class Gem
 		}
 		
 		
-		
+		//check if we need to update what is shown
 		if(_selected || _highlight || moving() || _selectedChanged || _firstTime || _disappearedChanged || _disappearing || _disappeared || _movingChanged)
 		{
 			_firstTime = false;
@@ -154,6 +160,7 @@ public class Gem
 			((AndroidGraphics) g).drawScaledImage(img, _x, _y, _width, _height, 0, 0, img.getWidth(), img.getHeight());		
 		}
 		
+		//this makes the gem disappear
 		if(_disappearing || _disappeared)
 		{
 			if(_disappearAlpha >= 255)
@@ -173,6 +180,7 @@ public class Gem
 		}
 	}
 	
+	//annimates the movement when a gem moves
 	public void animMovement()
 	{
 		if(_moving)
@@ -198,6 +206,7 @@ public class Gem
 		}
 	}
 	
+	//change gem position
 	public void moveTo(final int x, final int y)
 	{		
 		this._targetX = x;
@@ -211,21 +220,25 @@ public class Gem
 		return _moving;
 	}
 	
+	//marque le gem pour qu'il soit identifier plus tard
 	public void mark()
 	{
 		_marked = true;
 	}
 	
+	//demarque le gem pour qu'il soit identifier plus tard
 	public void unMark()
 	{
 		_marked = false;
 	}
 	
+	//regarde si le gem est marque
 	public boolean isMarked()
 	{
 		return _marked;
 	}
 	
+	//mets a jour les voisins
 	public void updateNeighborsOfNeighbors()
 	{
 		if(leftNeighbor() != null) {leftNeighbor().updateNeighbors();}
@@ -234,6 +247,7 @@ public class Gem
 		if(topNeighbor() != null) {topNeighbor().updateNeighbors();}
 	}
 	
+	//traite les input du joueur
 	public void update(TouchEvent event)
 	{
 		if(inBounds(event, _x, _y, _width, _height))
@@ -250,6 +264,7 @@ public class Gem
 		}
 	}
 	
+	//verifie si le gem est egal a un autre
 	public boolean isEqual(Gem g)
 	{
 		if(g == null)
@@ -266,12 +281,14 @@ public class Gem
 		}
 	}
 	
+	//assigne une position au gem
 	public void assignPosition(int gridX, int gridY, int x, int y)
 	{
 		_x = gridX + x * _width;
 		_y = gridY + y * _height;
 	}
 	
+	//regarde si l'event est a l'interieur de la grille
 	private boolean inBounds(TouchEvent event, int x, int y, int width,
             int height) {
         if (event.x > x && event.x < x + width - 1 && event.y > y
@@ -280,16 +297,6 @@ public class Gem
         else
             return false;
     }
-	
-	public void animTo(int x, int y)
-	{
-		while(_x != x && _y != y)
-		{
-			_x += (x - _x)/100;
-			_y += (y - _y)/100;
-			paint();
-		}
-	}
 	
 	public void select()
 	{		
@@ -308,6 +315,7 @@ public class Gem
 		return _selected;
 	}
 	
+	//met a jour les voisins
 	public void updateNeighbors()
 	{
 		_topNeighbor = null;
@@ -348,6 +356,7 @@ public class Gem
 		}
 	}
 	
+	//dessine les voisins (pour de debug)
 	public void drawNeighbors(int color)
 	{
 		_game.getGraphics().drawRect(topNeighbor()._x, topNeighbor()._y, _width, _height, color);
@@ -356,6 +365,7 @@ public class Gem
 		_game.getGraphics().drawRect(leftNeighbor()._x, leftNeighbor()._y, _width, _height, color);
 	}
 	
+	//retourne vrai si le gem est voisin a un autre
 	public boolean isNeighbor(Gem g)
 	{
 		if(	Math.abs(g._y - _y) <= _height && 
@@ -370,6 +380,7 @@ public class Gem
 		}
 	}
 
+	//retourne le voisin specifie
 	public Gem topNeighbor()
 	{
 		return _topNeighbor;
