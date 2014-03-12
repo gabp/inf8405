@@ -407,8 +407,8 @@ public abstract class AndroidGame extends Activity implements Game {
 						}
 						if (which == 1)
 						{
-							setScreen(ScreenManager.getInstance().getGameScreen());
 							ScreenManager.getInstance().getGameScreen().setNewGrid();
+							setScreen(ScreenManager.getInstance().getGameScreen());
 
 						}
 						if (which == 2)

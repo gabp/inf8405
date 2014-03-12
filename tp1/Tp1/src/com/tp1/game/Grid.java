@@ -502,7 +502,7 @@ public class Grid
 		p.setTextSize(40);
 		_game.getGraphics().drawRect(0, 0, 1000, 75, Color.rgb(0x0c, 0xc3, 0xcc));
 		//_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
-		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 40, p);
+		//_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 40, p);
 		_game.setMoves(_movesDone);
 		_game.setScore(_score);
 		
