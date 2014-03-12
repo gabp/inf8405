@@ -37,6 +37,7 @@ public class Grid
 	Timer _timer;
 	boolean _gameOver = false;
 	int _movesRemaining = 10;
+	boolean _isPaused = false;
 	
 	
 	public Grid()
@@ -484,12 +485,22 @@ public class Grid
 		return (_score);
 	}
 	
+	public void pauseTimer()
+	{
+		_isPaused = true;
+	}
+	
+	public void unPauseTimer()
+	{
+		_isPaused = false;
+	}
+	
 	public void updateUI()
 	{
 		Paint p = new Paint();
 		p.setColor(Color.WHITE);
 		p.setTextSize(40);
-		_game.getGraphics().drawRect(0, 0, 1000, 75, Color.BLACK);
+		_game.getGraphics().drawRect(0, 0, 1000, 75, Color.rgb(0x0c, 0xc3, 0xcc));
 		//_game.getGraphics().drawString("Score: " + _score, 50, 50, p);
 		_game.getGraphics().drawString("Potential lines: " + _potentialLines, 50, 40, p);
 		_game.setMoves(_movesDone);
@@ -515,12 +526,16 @@ public class Grid
 	}
 	
 	class UpdateTimer extends TimerTask {
-	    public void run() {
-	       _time--; 
-	       if(_time <= 0)
-	       {
-	    	   _gameOver = true;
-	       }
+	    public void run() 
+	    {
+	    	if (!_isPaused)
+	    	{
+		       _time--; 
+		       if(_time <= 0)
+		       {
+		    	   _gameOver = true;
+		       }
+	    	}
 	    }
 	 }
 	
@@ -677,6 +692,11 @@ public class Grid
 		return number;
 	}
 	
+	public Timer getTimer()
+	{
+		return(_timer);
+	}
+	
 	public void switchGems(final Gem gem1, final Gem gem2)
 	{			
 		_goodSwitch = false;
@@ -768,6 +788,11 @@ public class Grid
 				g.deselect();
 			}
 		}	
+	}
+	
+	public void resetScore()
+	{
+		_score = 0;
 	}
 
 	public void paint()

@@ -2,6 +2,7 @@ package com.tp1.game;
 
 import java.util.List;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.tp1.framework.Game;
@@ -20,6 +21,7 @@ public class GameScreen extends Screen
     	
         super(game);
         //_grid = Grid.getInstance();
+        game.getGraphics().clearScreen(Color.rgb(0x0c, 0xc3, 0xcc));
         _grid = new Grid();
     }
 
@@ -40,6 +42,16 @@ public class GameScreen extends Screen
         }
     }
 
+    public void setNewGrid()
+    {
+    	_grid = new Grid();
+    }
+    
+    public Grid getGrid()
+    {
+    	return (_grid);
+    }
+    
     @Override
     public void paint(float deltaTime) 
     {

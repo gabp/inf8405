@@ -1,7 +1,9 @@
 package com.tp1.framework.implementation;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -12,6 +14,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -33,6 +36,7 @@ import com.tp1.game.BejewelloMenu;
 import com.tp1.game.Grid;
 import com.tp1.game.R;
 import com.tp1.game.ScreenManager;
+import com.tp1.game.BejewelloMenu.Mode;
 
 public abstract class AndroidGame extends Activity implements Game {
     AndroidFastRenderView renderView;
@@ -355,6 +359,16 @@ public abstract class AndroidGame extends Activity implements Game {
     {
     	return (_currentPlayer);
     }
+    public void pauseTimer()
+    {
+    	if(BejewelloMenu.getMode() == Mode.CHRONO)
+    		ScreenManager.getInstance().getGameScreen().getGrid().pauseTimer();
+    }
+    public void unPauseTimer()
+    {
+    	if(BejewelloMenu.getMode() == Mode.CHRONO)
+    		ScreenManager.getInstance().getGameScreen().getGrid().unPauseTimer();
+    }
     
     public void goToMenu()
     {
@@ -365,8 +379,50 @@ public abstract class AndroidGame extends Activity implements Game {
     }
     public void homeButtonPressed(View v)
     {
+    	//On pause le timer ici
+    	pauseTimer();
+    	
     	//dialog icit. choix: continuer, retour au menu, recommencer (si !fini)
-    	this.goToMenu();
+    	// get prompts.xml view
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
+		//View promptView = layoutInflater.inflate(R.layout.dialog_ingame, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		// set prompts.xml to be the layout file of the alertdialog builder
+		//alertDialogBuilder.setView(promptView);
+
+		CharSequence choix[] = new CharSequence[] {"Return to the game", "Restart the game", "Exit to menu"};
+		// setup a dialog window
+		alertDialogBuilder
+				.setTitle("Menu")
+				.setItems(choix, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						if (which == 0)
+						{
+					    	unPauseTimer();
+							dialog.cancel();
+						}
+						if (which == 1)
+						{
+							setScreen(ScreenManager.getInstance().getGameScreen());
+							ScreenManager.getInstance().getGameScreen().setNewGrid();
+
+						}
+						if (which == 2)
+						{
+							goToMenu();
+						}
+					}
+				});
+
+
+		// create an alert dialog
+		AlertDialog alertD = alertDialogBuilder.create();
+
+		alertD.show();
     }
     
 }

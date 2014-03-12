@@ -47,7 +47,6 @@ public class BejewelloMenu extends Activity
 		LayoutInflater layoutInflater = LayoutInflater.from(this);
 
 		View promptView = layoutInflater.inflate(R.layout.dialog_name, null);
-
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		// set prompts.xml to be the layout file of the alertdialog builder
@@ -106,6 +105,11 @@ public class BejewelloMenu extends Activity
         startActivity(intent);
         finish();
 	}
+    
+    public static Mode getMode()
+    {
+    	return (_mode);
+    }
     
     public void quit(View v)
     {

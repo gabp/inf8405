@@ -31,7 +31,7 @@ public class GameOverScreen extends Screen{
 	public void paint(float deltaTime) 
 	{
 		Graphics g = game.getGraphics();
-		g.clearScreen(0);
+		g.clearScreen(Color.rgb(0x0c, 0xc3, 0xcc));
 		Paint p = new Paint();
 		p.setColor(Color.WHITE);
 		p.setTextSize(80);
