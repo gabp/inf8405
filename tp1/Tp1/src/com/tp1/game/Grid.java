@@ -12,6 +12,7 @@ import com.tp1.game.BejewelloMenu.Mode;
 
 public class Grid
 {
+	//Variables
 	final int numberOfColumns = 8, numberOfLines = 8;
 	Gem[][] gems;
 	int _x = 10, _y = 80;
