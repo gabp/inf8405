@@ -133,15 +133,15 @@ public class Gem
 			_selectedChanged = false;
 			_movingChanged = false;
 			
-			_game.getGraphics().drawRect(_x, _y, _width+1, _height+1, Color.BLACK);
+			_game.getGraphics().drawRect(_x, _y, _width+1, _height+1, Color.rgb(0x0c, 0xc3, 0xcc));
 			
 			if(_selected)
 			{
-				_game.getGraphics().drawRect(_x, _y, _width, _height, Color.GREEN);
+				_game.getGraphics().drawRect(_x, _y, _width, _height, Color.rgb(0xff, 0x7b, 0x09));
 			}
 			else
 			{
-				_game.getGraphics().drawRect(_x, _y, _width+1, _height+1, Color.BLACK);
+				_game.getGraphics().drawRect(_x, _y, _width+1, _height+1, Color.rgb(0x0c, 0xc3, 0xcc));
 			}
 			
 			if(_highlight)
@@ -161,7 +161,7 @@ public class Gem
 				_disappearing = false;
 				_disappearAlpha = 255;
 			}
-			_game.getGraphics().drawRect(_x, _y, _width, _height, Color.argb(_disappearAlpha, 0, 0, 0));
+			_game.getGraphics().drawRect(_x, _y, _width, _height, Color.argb(_disappearAlpha, 0x0c, 0xc3, 0xcc));
 			
 			if(!_disappeared && !_disappearing)
 			{
