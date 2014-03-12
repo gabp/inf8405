@@ -47,10 +47,13 @@ public class GameScreen extends Screen
     	_grid = new Grid();
     }
     
+    //retourne la grille
     public Grid getGrid()
     {
     	return (_grid);
     }
+    
+    
     
     @Override
     public void paint(float deltaTime) 
