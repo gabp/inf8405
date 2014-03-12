@@ -19,7 +19,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -57,6 +56,7 @@ public abstract class AndroidGame extends Activity implements Game {
     public static TextView remainingText;
     public static TextView movesText;
 
+    //Called when the activity is launched
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -64,9 +64,11 @@ public abstract class AndroidGame extends Activity implements Game {
     	AndroidGame.context = getApplicationContext();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //set the application in fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //initialisation en mode portrait
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         final int frameBufferWidth = isPortrait ? 800: 1280;
         final int frameBufferHeight = isPortrait ? 1280: 800;
@@ -77,20 +79,20 @@ public abstract class AndroidGame extends Activity implements Game {
                 frameBufferHeight, Config.RGB_565);
         }
         
+        //get the size of the display
         Point p = new Point();      
         getWindowManager().getDefaultDisplay().getSize(p);  //this requires API lvl 13 minimum
-        //width = p.x;
-        //height = p.y;
-       // if(!firstTime)
-        //	((ViewGroup)surface.getParent()).removeView(surface);
+        
         setContentView(R.layout.game);
-        surface = (SurfaceView) findViewById(R.id.gameView);
-    		
+        
+        //create a SurfaceView with the gameview (xml layout)
+        surface = (SurfaceView) findViewById(R.id.gameView);	
         surface.setZOrderOnTop(true);	//transparence?
         surfaceHolder = surface.getHolder();
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
         surface.setBackgroundColor(0xcc3cc);
         
+        //called when the surface is ready
         surface.addOnLayoutChangeListener(new OnLayoutChangeListener()
 		{
 			@Override
@@ -102,6 +104,8 @@ public abstract class AndroidGame extends Activity implements Game {
 		        float scaleX = (float) frameBufferWidth / width;
 		        float scaleY = (float) frameBufferHeight / height;
 				input = (AndroidInput._instance == null) ? new AndroidInput(AndroidGame.this, surface, scaleX, scaleY) : AndroidInput._instance;
+				
+				//update the touch handler with the new surface
 		        surface.setOnTouchListener(MultiTouchHandler._instance);
 				surface.removeOnLayoutChangeListener(this);
 			}
@@ -139,6 +143,7 @@ public abstract class AndroidGame extends Activity implements Game {
     }
 	
 	
+	//save the user score
 	public void saveScore()
 	{
 		String name = Bejewello.getGame().getCurrentPlayer();
@@ -291,6 +296,7 @@ public abstract class AndroidGame extends Activity implements Game {
         return audio;
     }
 
+    //changes the screen to a new screen
     @Override
     public void setScreen(Screen screen) {
         if (screen == null)
@@ -308,6 +314,7 @@ public abstract class AndroidGame extends Activity implements Game {
         return screen;
     }
     
+    //updates the score
     public void setScore(int currentScoreParam) {
     	final int currentScore = currentScoreParam;
     	
@@ -321,6 +328,7 @@ public abstract class AndroidGame extends Activity implements Game {
     	});
     }
     
+    //updates the number of moves label
     public void setMoves(int movesParam) {
     	final int moves = movesParam;
     	
@@ -334,6 +342,7 @@ public abstract class AndroidGame extends Activity implements Game {
     	});
     }
     
+    //updates the remaining moves label
     public void setRemaining(int currentRemainingParam, String modeParam) {
     	final int currentRemaining = currentRemainingParam;
     	final String mode = modeParam;
@@ -350,6 +359,7 @@ public abstract class AndroidGame extends Activity implements Game {
     	});
     }
     
+    //sets the current player
     public void setCurrentPlayer(String playerName)
     {
     	_currentPlayer = playerName;
@@ -359,6 +369,8 @@ public abstract class AndroidGame extends Activity implements Game {
     {
     	return (_currentPlayer);
     }
+    
+    //pause/resume the timer if its the chrono mode
     public void pauseTimer()
     {
     	if(BejewelloMenu.getMode() == Mode.CHRONO)
@@ -370,6 +382,7 @@ public abstract class AndroidGame extends Activity implements Game {
     		ScreenManager.getInstance().getGameScreen().getGrid().unPauseTimer();
     }
     
+    //changes activity to the menu acitivy
     public void goToMenu()
     {
     	//renderView.pause();
@@ -384,6 +397,8 @@ public abstract class AndroidGame extends Activity implements Game {
     	showMenuDialog();
 
     }
+    
+    //boite de confirmation lorsqu'on revient au menu principal
     public void showMenuDialog()
     {
     	//dialog icit. choix: continuer, retour au menu, recommencer (si !fini)
@@ -425,6 +440,7 @@ public abstract class AndroidGame extends Activity implements Game {
 		alertD.show();
     }
     
+    //boite de confirmation lorsqu'on quitte l'application
     public void showConfirmDialog()
     {
 		LayoutInflater layoutInflater = LayoutInflater.from(this);
