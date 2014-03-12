@@ -33,7 +33,7 @@ public class Grid
 	boolean _updatingGems = false;
 	int _potentialLines = 0;
 	BejewelloMenu.Mode _mode;
-	Integer _time = 10;
+	Integer _time = 60;
 	Timer _timer;
 	boolean _gameOver = false;
 	int _movesRemaining = 10;
@@ -722,7 +722,7 @@ public class Grid
     	{
     		try
 			{
-				Thread.sleep(500);
+				Thread.sleep(200);
 			} 
     		catch (InterruptedException e)
 			{
@@ -757,7 +757,7 @@ public class Grid
     			}
     			try
 				{
-					Thread.sleep(500);
+					Thread.sleep(200);
 				} catch (InterruptedException e)
 				{
 					// TODO Auto-generated catch block
@@ -770,7 +770,7 @@ public class Grid
     	}
     	try
 		{
-			Thread.sleep(500);
+			Thread.sleep(200);
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block

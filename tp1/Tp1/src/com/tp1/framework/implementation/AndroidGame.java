@@ -381,16 +381,18 @@ public abstract class AndroidGame extends Activity implements Game {
     {
     	//On pause le timer ici
     	pauseTimer();
-    	
+    	showMenuDialog();
+
+    }
+    public void showMenuDialog()
+    {
     	//dialog icit. choix: continuer, retour au menu, recommencer (si !fini)
     	// get prompts.xml view
 		LayoutInflater layoutInflater = LayoutInflater.from(this);
 		//View promptView = layoutInflater.inflate(R.layout.dialog_ingame, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
 		// set prompts.xml to be the layout file of the alertdialog builder
 		//alertDialogBuilder.setView(promptView);
-
 		CharSequence choix[] = new CharSequence[] {"Return to the game", "Restart the game", "Exit to menu"};
 		// setup a dialog window
 		alertDialogBuilder
@@ -408,20 +410,81 @@ public abstract class AndroidGame extends Activity implements Game {
 						if (which == 1)
 						{
 							ScreenManager.getInstance().getGameScreen().setNewGrid();
-							setScreen(ScreenManager.getInstance().getGameScreen());
+							Bejewello.getGame().setScreen(ScreenManager.getInstance().getGameScreen());
 
 						}
 						if (which == 2)
 						{
-							goToMenu();
+							showConfirmDialog();
 						}
 					}
 				});
-
-
 		// create an alert dialog
 		AlertDialog alertD = alertDialogBuilder.create();
-
+		alertD.show();
+    }
+    
+    public void showConfirmDialog()
+    {
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		// setup a dialog window
+		alertDialogBuilder
+				.setTitle("Are you sure you want to leave the current game?")
+				.setPositiveButton("Yes, Leave!", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								//goToMenu();
+								showSpanishDialog();
+							}
+						})
+				.setNegativeButton("No, Stay!",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,	int id) {
+								dialog.cancel();
+								showMenuDialog();			
+							}
+						});
+		// create an alert dialog
+		AlertDialog alertD = alertDialogBuilder.create();
+		alertD.show();
+    }
+    public void showSpanishDialog()
+    {
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		// setup a dialog window
+		alertDialogBuilder
+				.setTitle("Estoy quitto de la application? NO PUEDO!")
+				.setPositiveButton("Estraganda para los campos", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								showGroDialog();
+							}
+						})
+				.setNegativeButton("El bejewello d'el alerandro",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,	int id) {
+								showGroDialog();
+							}
+						});
+		// create an alert dialog
+		AlertDialog alertD = alertDialogBuilder.create();
+		alertD.show();
+    }
+    public void showGroDialog()
+    {
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		// setup a dialog window
+		alertDialogBuilder
+				.setTitle("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!")
+				.setPositiveButton("PALABRAS DEL DIOTCHO NOCRE", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								goToMenu();
+							}
+						})
+;
+		// create an alert dialog
+		AlertDialog alertD = alertDialogBuilder.create();
 		alertD.show();
     }
     

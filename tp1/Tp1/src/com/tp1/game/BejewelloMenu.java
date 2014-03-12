@@ -113,7 +113,33 @@ public class BejewelloMenu extends Activity
     
     public void quit(View v)
     {
-    	finish();
-    	System.exit(0);
+    	showConfirmDialog();
+    }
+    
+    public void showConfirmDialog()
+    {
+    	// get prompts.xml view
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		// set prompts.xml to be the layout file of the alertdialog builder
+
+		// setup a dialog window
+		alertDialogBuilder
+				.setTitle("Are you sure you want to leave the application?")
+				.setPositiveButton("Yes, Leave!", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+						    	finish();
+						    	System.exit(0);
+							}
+						})
+				.setNegativeButton("No, Stay!",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,	int id) {
+								dialog.cancel();
+							}
+						});
+		// create an alert dialog
+		AlertDialog alertD = alertDialogBuilder.create();
+		alertD.show();
     }
 }
